@@ -3,476 +3,1719 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ارائه اینترنت اشیا | IoT</title>
+<title>ارائه اینترنت اشیا | احسان نامی</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;overflow:hidden}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
 body{
-  font-family:Vazirmatn,sans-serif;
-  background:#02050b;
-  color:#eef7ff;
-  perspective:1200px;
+    font-family:Vazirmatn,sans-serif;
+    background:#02040a;
+    color:#eefaff;
+    perspective:1400px;
 }
 
+/* BACKGROUND */
 body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 45%,rgba(0,210,255,.13),transparent 28%),
-    radial-gradient(circle at 15% 80%,rgba(65,55,255,.10),transparent 30%),
-    radial-gradient(circle at 85% 15%,rgba(0,255,180,.08),transparent 30%);
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+    radial-gradient(circle at 50% 35%,rgba(0,229,255,.14),transparent 27%),
+    radial-gradient(circle at 10% 90%,rgba(62,70,255,.12),transparent 28%),
+    radial-gradient(circle at 90% 10%,rgba(0,255,180,.09),transparent 30%);
 }
 
-#particles{position:fixed;inset:0;z-index:0}
-.app{position:relative;z-index:2;width:100%;height:100%}
+body:after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(
+        rgba(0,229,255,.025) 1px,
+        transparent 1px
+    );
+    background-size:100% 5px;
+    opacity:.25;
+}
 
+/* PARTICLES */
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+}
+
+/* GRID */
 .grid{
- position:fixed;inset:-30%;opacity:.16;pointer-events:none;
- background-image:linear-gradient(rgba(0,220,255,.12) 1px,transparent 1px),
- linear-gradient(90deg,rgba(0,220,255,.12) 1px,transparent 1px);
- background-size:55px 55px;transform:perspective(500px) rotateX(65deg) translateY(25%);
- animation:gridMove 15s linear infinite;
+    position:fixed;
+    inset:-40%;
+    opacity:.14;
+    pointer-events:none;
+    background-image:
+    linear-gradient(rgba(0,229,255,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,.13) 1px,transparent 1px);
+    background-size:55px 55px;
+    transform:perspective(500px) rotateX(65deg) translateY(25%);
+    animation:gridMove 18s linear infinite;
 }
 
-@keyframes gridMove{to{transform:perspective(500px) rotateX(65deg) translateY(10%)}}
+@keyframes gridMove{
+    to{
+        transform:perspective(500px) rotateX(65deg) translateY(8%);
+    }
+}
 
+.app{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+}
+
+/* HEADER */
 header{
- position:fixed;top:0;left:0;right:0;height:78px;padding:0 35px;
- display:flex;align-items:center;justify-content:space-between;
- border-bottom:1px solid rgba(255,255,255,.08);
- background:rgba(2,5,11,.55);backdrop-filter:blur(18px);z-index:20;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:76px;
+    padding:0 35px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:rgba(2,5,11,.65);
+    backdrop-filter:blur(22px);
+    z-index:30;
 }
 
-.brand{display:flex;align-items:center;gap:12px;font-weight:800}
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:800;
+}
 
 .logo{
- width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
- border:1px solid rgba(0,229,255,.5);color:#00e5ff;
- box-shadow:0 0 25px rgba(0,229,255,.2);font-size:19px
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    color:#00e5ff;
+    border:1px solid rgba(0,229,255,.55);
+    box-shadow:
+    0 0 25px rgba(0,229,255,.18),
+    inset 0 0 15px rgba(0,229,255,.08);
+    font-size:21px;
 }
 
-.brand span{color:#00e5ff}
-.progress{display:flex;gap:7px;align-items:center}
-.dot{width:8px;height:8px;border-radius:50%;background:#26323d;transition:.3s}
-.dot.active{width:28px;border-radius:8px;background:#00e5ff;box-shadow:0 0 15px #00e5ff}
+.brand span{
+    color:#00e5ff;
+}
 
+.progress{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#27333d;
+    transition:.35s;
+    cursor:pointer;
+}
+
+.dot.active{
+    width:30px;
+    border-radius:10px;
+    background:#00e5ff;
+    box-shadow:0 0 18px #00e5ff;
+}
+
+/* SLIDES */
 .slide{
- position:absolute;inset:78px 0 0;display:none;overflow:auto;
- padding:35px 7vw 100px;scrollbar-width:none;
+    position:absolute;
+    inset:76px 0 0;
+    display:none;
+    overflow:auto;
+    padding:40px 7vw 100px;
+    scrollbar-width:none;
 }
 
-.slide::-webkit-scrollbar{display:none}
-.slide.active{display:block;animation:enter .55s ease}
+.slide::-webkit-scrollbar{
+    display:none;
+}
 
-@keyframes enter{from{opacity:0;transform:translateZ(-100px) rotateX(4deg)}to{opacity:1;transform:none}}
+.slide.active{
+    display:block;
+    animation:slideIn .65s cubic-bezier(.2,.8,.2,1);
+}
 
-.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.hero{height:calc(100vh - 78px);padding-bottom:70px}
+@keyframes slideIn{
+    from{
+        opacity:0;
+        transform:translateZ(-150px) rotateX(5deg) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
 
+.center{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero{
+    height:calc(100vh - 76px);
+    padding-bottom:50px;
+}
+
+/* TEXT */
 .eyebrow{
- color:#00e5ff;font-size:13px;letter-spacing:4px;text-transform:uppercase;
- margin-bottom:18px
+    color:#00e5ff;
+    font-size:12px;
+    letter-spacing:4px;
+    margin-bottom:18px;
+    text-transform:uppercase;
 }
 
-h1{font-size:clamp(42px,8vw,100px);line-height:1;font-weight:900;
- text-shadow:0 0 45px rgba(0,229,255,.25)}
+.title{
+    font-size:clamp(32px,5vw,64px);
+    line-height:1.2;
+    font-weight:900;
+    margin-bottom:15px;
+    text-shadow:0 0 35px rgba(0,229,255,.12);
+}
 
-h1 span{color:#00e5ff}
-.hero p{margin-top:25px;color:#a9b9c8;max-width:700px;line-height:2;font-size:17px}
+.title span,
+h1 span{
+    color:#00e5ff;
+}
 
+.sub{
+    max-width:850px;
+    color:#94a8b8;
+    line-height:2;
+    margin-bottom:30px;
+    font-size:15px;
+}
+
+h1{
+    font-size:clamp(45px,8vw,105px);
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-3px;
+    text-shadow:0 0 50px rgba(0,229,255,.22);
+}
+
+/* BUTTON */
 .btn{
- margin-top:32px;border:1px solid #00e5ff;background:rgba(0,229,255,.08);
- color:white;padding:14px 28px;border-radius:14px;font:inherit;cursor:pointer;
- box-shadow:0 0 25px rgba(0,229,255,.13);transition:.25s
+    margin-top:28px;
+    border:1px solid #00e5ff;
+    background:rgba(0,229,255,.07);
+    color:white;
+    padding:14px 30px;
+    border-radius:15px;
+    font:inherit;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 30px rgba(0,229,255,.12);
 }
 
-.btn:hover{background:#00e5ff;color:#001018;transform:translateY(-3px);box-shadow:0 10px 35px rgba(0,229,255,.3)}
+.btn:hover{
+    background:#00e5ff;
+    color:#001018;
+    transform:translateY(-4px);
+    box-shadow:0 12px 40px rgba(0,229,255,.3);
+}
 
-.earth-wrap{position:relative;width:300px;height:300px;margin-bottom:35px}
+/* EARTH */
+.earth-wrap{
+    position:relative;
+    width:280px;
+    height:280px;
+    margin-bottom:30px;
+}
 
 .earth{
- position:absolute;inset:20px;border-radius:50%;
- background:
- radial-gradient(circle at 32% 28%,#d8ffff 0 1%,transparent 2%),
- radial-gradient(circle at 55% 40%,#00d9ff 0 3%,transparent 4%),
- radial-gradient(circle at 25% 55%,#00a5ff 0 5%,transparent 6%),
- radial-gradient(circle at 65% 70%,#1f4cff 0 6%,transparent 7%),
- radial-gradient(circle at 40% 65%,#00ffc8 0 8%,transparent 9%),
- radial-gradient(circle,#08223a 20%,#03101d 70%);
- box-shadow:0 0 45px #00bfff, inset -30px -20px 50px #000;
- animation:float 5s ease-in-out infinite,spin 18s linear infinite;
+    position:absolute;
+    inset:20px;
+    border-radius:50%;
+    background:
+    radial-gradient(circle at 30% 30%,#d9ffff 0 1%,transparent 2%),
+    radial-gradient(circle at 60% 25%,#00e5ff 0 3%,transparent 4%),
+    radial-gradient(circle at 25% 55%,#008cff 0 5%,transparent 6%),
+    radial-gradient(circle at 65% 65%,#244cff 0 6%,transparent 7%),
+    radial-gradient(circle at 40% 70%,#00ffc8 0 8%,transparent 9%),
+    radial-gradient(circle,#082c46 15%,#03101c 68%);
+    box-shadow:
+    0 0 45px #00bfff,
+    0 0 100px rgba(0,229,255,.18),
+    inset -35px -20px 55px #000;
+    animation:float 5s ease-in-out infinite,
+              spin 18s linear infinite;
 }
 
-.earth:after{content:"";position:absolute;inset:-25px;border:1px solid rgba(0,229,255,.35);border-radius:50%;transform:rotateX(70deg);box-shadow:0 0 30px rgba(0,229,255,.2)}
+.earth:before{
+    content:"";
+    position:absolute;
+    inset:-17px;
+    border-radius:50%;
+    border:1px solid rgba(0,229,255,.4);
+    box-shadow:0 0 30px rgba(0,229,255,.15);
+}
 
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes float{50%{transform:translateY(-12px)}}
+.earth:after{
+    content:"";
+    position:absolute;
+    inset:-32px;
+    border-radius:50%;
+    border:1px dashed rgba(0,229,255,.18);
+    transform:rotateX(65deg);
+}
 
-.title{font-size:clamp(30px,5vw,55px);font-weight:900;margin-bottom:12px}
-.sub{color:#8fa1b2;line-height:2;margin-bottom:28px}
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
 
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1100px;margin:auto}
+@keyframes float{
+    50%{transform:translateY(-12px)}
+}
+
+/* INTRO BOX */
+.intro-box{
+    max-width:900px;
+    margin:25px auto;
+    padding:35px;
+    border:1px solid rgba(0,229,255,.2);
+    border-radius:28px;
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.075),
+        rgba(255,255,255,.025)
+    );
+    backdrop-filter:blur(18px);
+    box-shadow:
+    0 25px 80px rgba(0,0,0,.35),
+    inset 0 0 40px rgba(0,229,255,.025);
+}
+
+.intro-box p{
+    color:#a9bac7;
+    line-height:2.2;
+    font-size:15px;
+}
+
+.student-info{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+.info-pill{
+    padding:12px 22px;
+    border-radius:14px;
+    border:1px solid rgba(0,229,255,.18);
+    background:rgba(0,229,255,.045);
+    color:#b8c9d5;
+}
+
+.info-pill strong{
+    color:#00e5ff;
+}
+
+/* CARDS */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    max-width:1150px;
+    margin:auto;
+}
 
 .card{
- min-height:190px;padding:25px;border:1px solid rgba(255,255,255,.09);
- border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
- backdrop-filter:blur(12px);transition:.35s;transform-style:preserve-3d
+    min-height:185px;
+    padding:26px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:23px;
+    background:
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.075),
+        rgba(255,255,255,.025)
+    );
+    backdrop-filter:blur(15px);
+    transition:.35s;
+    transform-style:preserve-3d;
+    position:relative;
+    overflow:hidden;
 }
 
-.card:hover{transform:translateY(-8px) rotateX(3deg) rotateY(-3deg);border-color:rgba(0,229,255,.5);box-shadow:0 20px 50px rgba(0,0,0,.35),0 0 25px rgba(0,229,255,.08)}
+.card:before{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:rgba(0,229,255,.08);
+    filter:blur(35px);
+    top:-40px;
+    right:-40px;
+}
 
-.icon{font-size:38px;margin-bottom:15px}
-.card h3{font-size:19px;margin-bottom:9px}
-.card p{font-size:14px;color:#99a9b8;line-height:1.9}
+.card:hover{
+    transform:translateY(-9px) rotateX(3deg) rotateY(-3deg);
+    border-color:rgba(0,229,255,.5);
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.4),
+    0 0 30px rgba(0,229,255,.08);
+}
 
-.flow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:35px auto;max-width:1050px}
+.icon{
+    font-size:38px;
+    margin-bottom:15px;
+}
+
+.card h3{
+    font-size:19px;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:13px;
+    color:#9aabb8;
+    line-height:1.9;
+}
+
+/* FLOW */
+.flow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:40px auto;
+    max-width:1100px;
+}
 
 .node{
- width:150px;height:130px;border-radius:20px;display:flex;flex-direction:column;
- align-items:center;justify-content:center;border:1px solid rgba(0,229,255,.25);
- background:rgba(0,229,255,.045);box-shadow:inset 0 0 25px rgba(0,229,255,.03);
- transition:.3s
+    width:155px;
+    height:135px;
+    border-radius:22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(0,229,255,.25);
+    background:rgba(0,229,255,.045);
+    transition:.3s;
 }
 
-.node:hover{transform:translateZ(30px) scale(1.05);border-color:#00e5ff;box-shadow:0 0 30px rgba(0,229,255,.2)}
-.node b{font-size:31px;margin-bottom:7px}
-.node small{color:#9fb0bf}
-.arrow{font-size:25px;color:#00e5ff;animation:pulse 1.2s infinite}
+.node:hover{
+    transform:translateY(-8px) scale(1.04);
+    border-color:#00e5ff;
+    box-shadow:0 0 35px rgba(0,229,255,.2);
+}
 
-@keyframes pulse{50%{transform:translateX(-5px);opacity:.5}}
+.node b{
+    font-size:32px;
+    margin-bottom:8px;
+}
 
+.node small{
+    color:#9fb0bf;
+}
+
+.arrow{
+    font-size:25px;
+    color:#00e5ff;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:translateX(-5px);
+        opacity:.5;
+    }
+}
+
+/* ARCHITECTURE */
+.architecture{
+    max-width:1100px;
+    margin:30px auto;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+}
+
+.arch{
+    padding:25px 12px;
+    text-align:center;
+    border-radius:18px;
+    border:1px solid rgba(0,229,255,.15);
+    background:rgba(255,255,255,.035);
+}
+
+.arch b{
+    display:block;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.arch span{
+    font-size:12px;
+    color:#9eafbc;
+}
+
+/* QUOTE */
+.quote{
+    max-width:900px;
+    margin:35px auto;
+    padding:32px;
+    border-radius:25px;
+    border:1px solid rgba(0,229,255,.23);
+    background:rgba(0,229,255,.035);
+    text-align:center;
+    font-size:20px;
+    line-height:2;
+    color:#d7f8ff;
+    box-shadow:inset 0 0 40px rgba(0,229,255,.025);
+}
+
+/* SMART WORLD */
 .iot-room{
- position:relative;max-width:1050px;height:430px;margin:10px auto;
- border:1px solid rgba(255,255,255,.1);border-radius:28px;
- background:linear-gradient(145deg,rgba(13,29,45,.9),rgba(3,9,16,.9));
- overflow:hidden;box-shadow:0 25px 70px rgba(0,0,0,.4);
+    position:relative;
+    max-width:1100px;
+    height:430px;
+    margin:15px auto;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:30px;
+    background:
+    radial-gradient(circle at center,rgba(0,229,255,.06),transparent 45%),
+    linear-gradient(145deg,rgba(13,29,45,.9),rgba(3,9,16,.95));
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
 }
 
-.floor{position:absolute;left:-10%;right:-10%;bottom:-80px;height:190px;
- background:linear-gradient(transparent,rgba(0,229,255,.08));
- transform:perspective(500px) rotateX(55deg)}
+.floor{
+    position:absolute;
+    left:-10%;
+    right:-10%;
+    bottom:-80px;
+    height:190px;
+    background:linear-gradient(
+        transparent,
+        rgba(0,229,255,.09)
+    );
+    transform:perspective(500px) rotateX(55deg);
+}
 
 .room-item{
- position:absolute;width:110px;height:110px;border-radius:22px;
- display:grid;place-items:center;text-align:center;font-size:40px;
- background:rgba(5,15,25,.8);border:1px solid rgba(0,229,255,.35);
- box-shadow:0 0 25px rgba(0,229,255,.08);cursor:pointer;transition:.3s
+    position:absolute;
+    width:110px;
+    height:110px;
+    border-radius:22px;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    font-size:38px;
+    background:rgba(5,15,25,.85);
+    border:1px solid rgba(0,229,255,.35);
+    box-shadow:0 0 25px rgba(0,229,255,.08);
+    cursor:pointer;
+    transition:.3s;
 }
 
-.room-item span{display:block;font-size:12px;color:#9eb1c1;margin-top:4px}
-.room-item:hover{transform:scale(1.12) translateZ(40px);border-color:#00e5ff;box-shadow:0 0 35px rgba(0,229,255,.25)}
+.room-item span{
+    display:block;
+    font-size:12px;
+    color:#9eb1c1;
+}
+
+.room-item:hover{
+    transform:scale(1.12) translateZ(40px);
+    border-color:#00e5ff;
+    box-shadow:0 0 40px rgba(0,229,255,.25);
+}
 
 .i1{top:45px;right:13%}
-.i2{top:170px;right:42%}
+.i2{top:165px;right:42%}
 .i3{top:55px;left:13%}
 .i4{bottom:35px;left:37%}
 .i5{bottom:35px;right:12%}
 
-.stat-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:30px 0}
+/* STATS */
+.stat-row{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin:30px 0;
+}
 
-.stat{min-width:190px;padding:22px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
-.stat strong{display:block;font-size:31px;color:#00e5ff}
-.stat span{color:#9aabb9;font-size:13px}
+.stat{
+    min-width:190px;
+    padding:22px;
+    text-align:center;
+    border-radius:18px;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.08);
+}
 
+.stat strong{
+    display:block;
+    font-size:28px;
+    color:#00e5ff;
+    margin-bottom:6px;
+}
+
+.stat span{
+    color:#9aabb9;
+    font-size:12px;
+}
+
+/* FUTURE */
 .future{
- min-height:300px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;
- max-width:1000px;margin:25px auto
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:16px;
+    max-width:1050px;
+    margin:25px auto;
 }
 
-.future .card{text-align:center;min-height:210px}
-
-.quote{
- max-width:850px;margin:35px auto;padding:35px;border-radius:25px;
- border:1px solid rgba(0,229,255,.25);background:rgba(0,229,255,.04);
- text-align:center;font-size:24px;line-height:2
+.future .card{
+    text-align:center;
+    min-height:205px;
 }
 
+/* FOOTER */
 footer{
- position:fixed;bottom:0;left:0;right:0;height:64px;padding:0 30px;z-index:25;
- display:flex;justify-content:space-between;align-items:center;
- background:linear-gradient(transparent,rgba(2,5,11,.92));pointer-events:none
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:65px;
+    padding:0 30px;
+    z-index:35;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:linear-gradient(
+        transparent,
+        rgba(2,5,11,.95)
+    );
+    pointer-events:none;
 }
 
-.nav{display:flex;gap:9px;pointer-events:auto}
+.nav{
+    display:flex;
+    gap:9px;
+    pointer-events:auto;
+}
 
 .nav button{
- border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
- color:white;width:44px;height:44px;border-radius:12px;cursor:pointer;font-size:18px
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.06);
+    color:white;
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:18px;
+    transition:.25s;
 }
 
-.nav button:hover{border-color:#00e5ff;color:#00e5ff}
-.counter{font-size:12px;color:#738595}
+.nav button:hover{
+    border-color:#00e5ff;
+    color:#00e5ff;
+    box-shadow:0 0 18px rgba(0,229,255,.15);
+}
 
+.counter{
+    font-size:12px;
+    color:#738595;
+}
+
+/* INFO MODAL */
 #info{
- position:fixed;inset:auto 50% 50%;transform:translate(50%,50%) scale(.8);
- width:min(420px,88vw);padding:28px;border-radius:22px;
- background:rgba(3,10,18,.96);border:1px solid #00e5ff;
- box-shadow:0 0 70px rgba(0,229,255,.18);z-index:100;opacity:0;pointer-events:none;transition:.25s
+    position:fixed;
+    inset:auto 50% 50%;
+    transform:translate(50%,50%) scale(.8);
+    width:min(440px,88vw);
+    padding:30px;
+    border-radius:23px;
+    background:rgba(3,10,18,.97);
+    border:1px solid #00e5ff;
+    box-shadow:0 0 80px rgba(0,229,255,.2);
+    z-index:100;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
 }
 
-#info.show{opacity:1;transform:translate(50%,50%) scale(1);pointer-events:auto}
-#info h3{color:#00e5ff;margin-bottom:12px}
-#info p{color:#b4c2ce;line-height:2;font-size:14px}
-.close{position:absolute;left:15px;top:12px;background:none;border:0;color:#aaa;font-size:20px;cursor:pointer}
+#info.show{
+    opacity:1;
+    transform:translate(50%,50%) scale(1);
+    pointer-events:auto;
+}
 
-@media(max-width:650px){
- header{padding:0 15px}.brand{font-size:13px}.progress{display:none}
- .slide{padding:25px 18px 90px}.hero{padding-bottom:30px}
- .earth-wrap{width:230px;height:230px}.earth{inset:15px}
- .flow{gap:7px}.node{width:125px;height:110px}.arrow{display:none}
- .iot-room{height:470px}.room-item{width:90px;height:90px;font-size:31px}
- .i1{right:5%}.i2{right:36%;top:185px}.i3{left:5%}.i4{left:8%;bottom:30px}.i5{right:8%;bottom:30px}
- footer{padding:0 15px}
+#info h3{
+    color:#00e5ff;
+    margin-bottom:13px;
+}
+
+#info p{
+    color:#b4c2ce;
+    line-height:2;
+    font-size:14px;
+}
+
+.close{
+    position:absolute;
+    left:15px;
+    top:12px;
+    background:none;
+    border:0;
+    color:#aaa;
+    font-size:20px;
+    cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:750px){
+
+    header{
+        padding:0 15px;
+    }
+
+    .brand{
+        font-size:13px;
+    }
+
+    .progress{
+        display:none;
+    }
+
+    .slide{
+        padding:25px 18px 90px;
+    }
+
+    .hero{
+        padding-bottom:20px;
+    }
+
+    .earth-wrap{
+        width:220px;
+        height:220px;
+    }
+
+    .earth{
+        inset:15px;
+    }
+
+    h1{
+        font-size:43px;
+    }
+
+    .flow{
+        gap:7px;
+    }
+
+    .node{
+        width:125px;
+        height:110px;
+    }
+
+    .arrow{
+        display:none;
+    }
+
+    .architecture{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .iot-room{
+        height:470px;
+    }
+
+    .room-item{
+        width:90px;
+        height:90px;
+        font-size:30px;
+    }
+
+    .i1{right:5%}
+    .i2{right:36%;top:185px}
+    .i3{left:5%}
+    .i4{left:8%;bottom:30px}
+    .i5{right:8%;bottom:30px}
+
+    footer{
+        padding:0 15px;
+    }
 }
 </style>
 </head>
 
 <body>
+
 <div id="particles"></div>
 <div class="grid"></div>
 
 <div class="app">
+
 <header>
-  <div class="brand">
-    <div class="logo">⌁</div>
-    <div>ارائه <span>اینترنت اشیا</span></div>
-  </div>
-  <div class="progress" id="progress"></div>
+    <div class="brand">
+        <div class="logo">⌁</div>
+        <div>
+            ارائه <span>اینترنت اشیا</span>
+        </div>
+    </div>
+
+    <div class="progress" id="progress"></div>
 </header>
 
+
+<!-- 01 COVER -->
 <section class="slide active" id="s0">
-  <div class="hero center">
-    <div class="earth-wrap"><div class="earth"></div></div>
-    <div class="eyebrow">Interactive University Presentation</div>
-    <h1>INTERNET <span>OF THINGS</span></h1>
-    <p>اینترنت اشیا؛ جایی که اشیای اطراف ما با اتصال به اینترنت، داده تولید می‌کنند، با یکدیگر ارتباط برقرار می‌کنند و می‌توانند به‌صورت هوشمند واکنش نشان دهند.</p>
-    <button class="btn" onclick="go(1)">شروع ارائه ←</button>
-  </div>
+
+<div class="hero center">
+
+    <div class="earth-wrap">
+        <div class="earth"></div>
+    </div>
+
+    <div class="eyebrow">
+        UNIVERSITY PRESENTATION • 2026
+    </div>
+
+    <h1>
+        INTERNET
+        <span>OF THINGS</span>
+    </h1>
+
+    <p class="sub">
+        ارائه‌ای تعاملی درباره اینترنت اشیا؛
+        جایی که اشیا، داده و فناوری به یکدیگر متصل می‌شوند
+        تا دنیای اطراف ما هوشمندتر شود.
+    </p>
+
+    <div class="student-info">
+
+        <div class="info-pill">
+            ارائه‌دهنده:
+            <strong>احسان نامی</strong>
+        </div>
+
+        <div class="info-pill">
+            استاد:
+            <strong>غفوری</strong>
+        </div>
+
+    </div>
+
+    <button class="btn" onclick="go(1)">
+        ورود به ارائه ←
+    </button>
+
+</div>
+
 </section>
 
+
+<!-- 02 INTRO -->
 <section class="slide" id="s1">
-  <div class="center">
-    <div class="eyebrow">01 / CONCEPT</div>
-    <h2 class="title">اینترنت اشیا چیست؟</h2>
-    <p class="sub">IoT یا Internet of Things به شبکه‌ای از اشیای فیزیکی گفته می‌شود که با حسگر، نرم‌افزار و اتصال شبکه می‌توانند داده جمع‌آوری و تبادل کنند.</p>
-  </div>
 
-  <div class="cards">
-    <div class="card"><div class="icon">📡</div><h3>اتصال</h3><p>دستگاه‌ها از طریق Wi-Fi، Bluetooth، شبکه موبایل و فناوری‌های دیگر به شبکه متصل می‌شوند.</p></div>
-    <div class="card"><div class="icon">🌡️</div><h3>حسگر</h3><p>حسگرها اطلاعاتی مانند دما، نور، حرکت، فشار و موقعیت را اندازه‌گیری می‌کنند.</p></div>
-    <div class="card"><div class="icon">☁️</div><h3>داده</h3><p>اطلاعات جمع‌آوری‌شده می‌تواند در سرور یا فضای ابری پردازش و تحلیل شود.</p></div>
-    <div class="card"><div class="icon">⚙️</div><h3>اقدام</h3><p>سیستم می‌تواند بر اساس داده‌ها یک عمل مشخص انجام دهد؛ مثل روشن کردن کولر.</p></div>
-  </div>
+<div class="center">
+
+    <div class="eyebrow">
+        01 / INTRODUCTION
+    </div>
+
+    <h2 class="title">
+        مقدمه‌ای بر <span>اینترنت اشیا</span>
+    </h2>
+
+    <div class="intro-box">
+
+        <p>
+            اینترنت اشیا یا IoT مفهومی است که در آن اشیای فیزیکی
+            مختلف مانند لوازم خانگی، خودروها، تجهیزات صنعتی،
+            ابزارهای پزشکی و حتی زیرساخت‌های شهری می‌توانند
+            به شبکه متصل شوند، اطلاعات جمع‌آوری کنند و
+            داده‌های خود را با سیستم‌های دیگر به اشتراک بگذارند.
+        </p>
+
+        <br>
+
+        <p>
+            هدف اینترنت اشیا تنها اتصال دستگاه‌ها به اینترنت نیست؛
+            بلکه ایجاد ارتباط میان دنیای فیزیکی و دیجیتال است.
+            در این ساختار، حسگرها اطلاعات محیط را دریافت می‌کنند،
+            شبکه داده‌ها را منتقل می‌کند و سیستم‌های پردازشی
+            از این اطلاعات برای تحلیل و تصمیم‌گیری استفاده می‌کنند.
+        </p>
+
+    </div>
+
+</div>
+
 </section>
 
+
+<!-- 03 WHAT IS IOT -->
 <section class="slide" id="s2">
-  <div class="center">
-    <div class="eyebrow">02 / HOW IT WORKS</div>
-    <h2 class="title">اینترنت اشیا چگونه کار می‌کند؟</h2>
-    <p class="sub">یک چرخه ساده از دریافت اطلاعات تا تصمیم‌گیری و انجام عمل</p>
-  </div>
 
-  <div class="flow">
-    <div class="node"><b>🌡️</b><small>Sensor<br>حسگر</small></div><div class="arrow">←</div>
-    <div class="node"><b>📶</b><small>Network<br>شبکه</small></div><div class="arrow">←</div>
-    <div class="node"><b>☁️</b><small>Cloud<br>پردازش</small></div><div class="arrow">←</div>
-    <div class="node"><b>🧠</b><small>Analysis<br>تحلیل</small></div><div class="arrow">←</div>
-    <div class="node"><b>⚡</b><small>Action<br>اقدام</small></div>
-  </div>
+<div class="center">
 
-  <div class="quote">مثال: سنسور دمای خانه → ارسال داده → تحلیل دما → تشخیص گرمای زیاد → روشن شدن خودکار کولر</div>
+    <div class="eyebrow">
+        02 / CONCEPT
+    </div>
+
+    <h2 class="title">
+        اینترنت اشیا <span>چیست؟</span>
+    </h2>
+
+    <p class="sub">
+        IoT مخفف Internet of Things است و به شبکه‌ای از
+        اشیای فیزیکی دارای حسگر، نرم‌افزار و قابلیت ارتباطی گفته می‌شود.
+    </p>
+
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <div class="icon">📡</div>
+        <h3>اتصال</h3>
+        <p>
+            دستگاه‌ها از طریق Wi-Fi، Bluetooth،
+            شبکه موبایل و فناوری‌های دیگر به شبکه متصل می‌شوند.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌡️</div>
+        <h3>حسگر</h3>
+        <p>
+            حسگرها اطلاعاتی مانند دما، نور، حرکت،
+            فشار و موقعیت را اندازه‌گیری می‌کنند.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">☁️</div>
+        <h3>داده</h3>
+        <p>
+            اطلاعات جمع‌آوری‌شده می‌تواند در سرور
+            یا فضای ابری ذخیره و پردازش شود.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">⚙️</div>
+        <h3>اقدام</h3>
+        <p>
+            سیستم می‌تواند بر اساس داده‌های دریافت‌شده
+            یک عمل مشخص و خودکار انجام دهد.
+        </p>
+    </div>
+
+</div>
+
 </section>
 
-<section class="slide" id="s3">
-  <div class="center">
-    <div class="eyebrow">03 / SMART WORLD</div>
-    <h2 class="title">دنیای متصل</h2>
-    <p class="sub">روی هر وسیله کلیک کنید تا نقش آن در اینترنت اشیا را ببینید</p>
-  </div>
 
-  <div class="iot-room">
+<!-- 04 ARCHITECTURE -->
+<section class="slide" id="s3">
+
+<div class="center">
+
+    <div class="eyebrow">
+        03 / ARCHITECTURE
+    </div>
+
+    <h2 class="title">
+        معماری اینترنت اشیا
+    </h2>
+
+    <p class="sub">
+        از دریافت اطلاعات توسط حسگر تا تصمیم‌گیری و اجرای یک عمل
+    </p>
+
+</div>
+
+<div class="architecture">
+
+    <div class="arch">
+        <b>🌡️</b>
+        <span>حسگرها</span>
+    </div>
+
+    <div class="arch">
+        <b>📶</b>
+        <span>ارتباط و شبکه</span>
+    </div>
+
+    <div class="arch">
+        <b>☁️</b>
+        <span>پردازش</span>
+    </div>
+
+    <div class="arch">
+        <b>🧠</b>
+        <span>تحلیل داده</span>
+    </div>
+
+    <div class="arch">
+        <b>⚡</b>
+        <span>اقدام</span>
+    </div>
+
+</div>
+
+<div class="quote">
+    حسگر → شبکه → پردازش → تحلیل → تصمیم → اقدام
+</div>
+
+</section>
+
+
+<!-- 05 HOW -->
+<section class="slide" id="s4">
+
+<div class="center">
+
+    <div class="eyebrow">
+        04 / HOW IT WORKS
+    </div>
+
+    <h2 class="title">
+        اینترنت اشیا چگونه <span>کار می‌کند؟</span>
+    </h2>
+
+    <p class="sub">
+        یک نمونه ساده از عملکرد یک سیستم IoT
+    </p>
+
+</div>
+
+<div class="flow">
+
+    <div class="node">
+        <b>🌡️</b>
+        <small>Sensor<br>حسگر</small>
+    </div>
+
+    <div class="arrow">←</div>
+
+    <div class="node">
+        <b>📶</b>
+        <small>Network<br>شبکه</small>
+    </div>
+
+    <div class="arrow">←</div>
+
+    <div class="node">
+        <b>☁️</b>
+        <small>Cloud<br>پردازش</small>
+    </div>
+
+    <div class="arrow">←</div>
+
+    <div class="node">
+        <b>🧠</b>
+        <small>Analysis<br>تحلیل</small>
+    </div>
+
+    <div class="arrow">←</div>
+
+    <div class="node">
+        <b>⚡</b>
+        <small>Action<br>اقدام</small>
+    </div>
+
+</div>
+
+<div class="quote">
+    مثال:
+    سنسور دمای خانه → ارسال داده →
+    تحلیل دما → تشخیص گرمای زیاد →
+    روشن شدن خودکار کولر
+</div>
+
+</section>
+
+
+<!-- 06 SMART WORLD -->
+<section class="slide" id="s5">
+
+<div class="center">
+
+    <div class="eyebrow">
+        05 / SMART WORLD
+    </div>
+
+    <h2 class="title">
+        دنیای <span>متصل</span>
+    </h2>
+
+    <p class="sub">
+        روی هر بخش کلیک کنید تا نمونه‌ای از کاربرد IoT را ببینید
+    </p>
+
+</div>
+
+<div class="iot-room">
+
     <div class="floor"></div>
 
-    <div class="room-item i1" onclick="showInfo('خانه هوشمند','لامپ‌ها، ترموستات، دوربین‌ها و لوازم خانگی می‌توانند به شبکه متصل شوند و از راه دور یا به‌صورت خودکار کنترل شوند.')">
-      🏠<span>خانه هوشمند</span>
+    <div class="room-item i1"
+         onclick="showInfo(
+         'خانه هوشمند',
+         'لامپ‌ها، ترموستات، دوربین‌ها و لوازم خانگی می‌توانند به شبکه متصل شوند و از راه دور یا به‌صورت خودکار کنترل شوند.'
+         )">
+        🏠
+        <span>خانه هوشمند</span>
     </div>
 
-    <div class="room-item i2" onclick="showInfo('خودروی متصل','خودروهای متصل می‌توانند اطلاعاتی مانند موقعیت، وضعیت خودرو و داده‌های مربوط به رانندگی را با سامانه‌های دیگر تبادل کنند.')">
-      🚗<span>خودروی متصل</span>
+    <div class="room-item i2"
+         onclick="showInfo(
+         'خودروی متصل',
+         'خودروهای متصل می‌توانند اطلاعاتی مانند موقعیت، وضعیت خودرو و داده‌های مربوط به رانندگی را با سامانه‌های دیگر تبادل کنند.'
+         )">
+        🚗
+        <span>خودروی متصل</span>
     </div>
 
-    <div class="room-item i3" onclick="showInfo('پزشکی هوشمند','دستگاه‌های پوشیدنی و تجهیزات پزشکی متصل می‌توانند برخی داده‌های بدن یا وضعیت بیمار را ثبت و منتقل کنند.')">
-      ❤️<span>پزشکی</span>
+    <div class="room-item i3"
+         onclick="showInfo(
+         'پزشکی هوشمند',
+         'دستگاه‌های پوشیدنی و تجهیزات پزشکی متصل می‌توانند برخی داده‌های بدن یا وضعیت بیمار را ثبت و منتقل کنند.'
+         )">
+        ❤️
+        <span>پزشکی</span>
     </div>
 
-    <div class="room-item i4" onclick="showInfo('کشاورزی هوشمند','حسگرهای خاک، رطوبت و دما به کشاورز کمک می‌کنند شرایط مزرعه را دقیق‌تر پایش کند.')">
-      🌱<span>کشاورزی</span>
+    <div class="room-item i4"
+         onclick="showInfo(
+         'کشاورزی هوشمند',
+         'حسگرهای خاک، رطوبت و دما به کشاورز کمک می‌کنند شرایط مزرعه را دقیق‌تر پایش کند.'
+         )">
+        🌱
+        <span>کشاورزی</span>
     </div>
 
-    <div class="room-item i5" onclick="showInfo('صنعت هوشمند','ماشین‌آلات و تجهیزات صنعتی می‌توانند داده‌های عملکردی تولید کنند و برای پایش و نگهداری مورد استفاده قرار گیرند.')">
-      🏭<span>صنعت</span>
+    <div class="room-item i5"
+         onclick="showInfo(
+         'صنعت هوشمند',
+         'ماشین‌آلات و تجهیزات صنعتی می‌توانند داده‌های عملکردی تولید کنند و برای پایش و نگهداری مورد استفاده قرار گیرند.'
+         )">
+        🏭
+        <span>صنعت</span>
     </div>
-  </div>
+
+</div>
+
 </section>
 
-<section class="slide" id="s4">
-  <div class="center">
-    <div class="eyebrow">04 / APPLICATIONS</div>
-    <h2 class="title">کاربردهای اینترنت اشیا</h2>
-    <p class="sub">IoT فقط به خانه هوشمند محدود نیست</p>
-  </div>
 
-  <div class="cards">
-    <div class="card"><div class="icon">🏠</div><h3>خانه هوشمند</h3><p>کنترل روشنایی، دما، امنیت و لوازم خانگی.</p></div>
-    <div class="card"><div class="icon">🏥</div><h3>سلامت</h3><p>پایش از راه دور برخی شاخص‌ها و تجهیزات متصل.</p></div>
-    <div class="card"><div class="icon">🏭</div><h3>صنعت</h3><p>پایش ماشین‌آلات، تولید داده و نگهداری پیش‌بینانه.</p></div>
-    <div class="card"><div class="icon">🌾</div><h3>کشاورزی</h3><p>اندازه‌گیری رطوبت خاک و مدیریت هوشمند منابع.</p></div>
-    <div class="card"><div class="icon">🚦</div><h3>شهر هوشمند</h3><p>مدیریت ترافیک، پارکینگ، روشنایی و زیرساخت شهری.</p></div>
-    <div class="card"><div class="icon">🚚</div><h3>حمل‌ونقل</h3><p>ردیابی، مدیریت ناوگان و تبادل اطلاعات خودروها.</p></div>
-  </div>
-</section>
-
-<section class="slide" id="s5">
-  <div class="center">
-    <div class="eyebrow">05 / ADVANTAGES</div>
-    <h2 class="title">مزایا و چالش‌ها</h2>
-    <p class="sub">اتصال هوشمند فرصت‌های زیادی ایجاد می‌کند، اما بدون چالش نیست</p>
-  </div>
-
-  <div class="cards">
-    <div class="card"><div class="icon">⚡</div><h3>اتوماسیون</h3><p>انجام خودکار بسیاری از کارها بر اساس داده و شرایط محیط.</p></div>
-    <div class="card"><div class="icon">📊</div><h3>تصمیم‌گیری داده‌محور</h3><p>استفاده از داده‌های واقعی برای شناخت بهتر وضعیت سیستم.</p></div>
-    <div class="card"><div class="icon">💰</div><h3>بهینه‌سازی</h3><p>در برخی کاربردها می‌تواند به کاهش مصرف منابع و هزینه‌ها کمک کند.</p></div>
-    <div class="card"><div class="icon">🔐</div><h3>امنیت و حریم خصوصی</h3><p>افزایش تعداد دستگاه‌های متصل، سطح حمله و نیاز به حفاظت از داده‌ها را بیشتر می‌کند.</p></div>
-    <div class="card"><div class="icon">🌐</div><h3>وابستگی به شبکه</h3><p>ارتباط، زیرساخت و پایداری شبکه برای بسیاری از کاربردها اهمیت دارد.</p></div>
-    <div class="card"><div class="icon">🧩</div><h3>استانداردها</h3><p>هماهنگی دستگاه‌ها و پروتکل‌های مختلف یکی از مسائل مهم اکوسیستم IoT است.</p></div>
-  </div>
-</section>
-
+<!-- 07 APPLICATIONS -->
 <section class="slide" id="s6">
-  <div class="center">
-    <div class="eyebrow">06 / FUTURE</div>
-    <h2 class="title">آینده اینترنت اشیا</h2>
-    <p class="sub">با ترکیب IoT با فناوری‌های دیگر، سیستم‌های متصل می‌توانند هوشمندتر شوند</p>
-  </div>
 
-  <div class="future">
-    <div class="card"><div class="icon">🤖</div><h3>هوش مصنوعی</h3><p>تحلیل حجم زیادی از داده‌های دستگاه‌ها و استخراج الگوهای مفید.</p></div>
-    <div class="card"><div class="icon">🏙️</div><h3>شهرهای هوشمند</h3><p>اتصال زیرساخت‌های شهری برای پایش و مدیریت بهتر.</p></div>
-    <div class="card"><div class="icon">🚘</div><h3>حمل‌ونقل متصل</h3><p>ارتباط میان خودروها، جاده‌ها و سامانه‌های حمل‌ونقل.</p></div>
-    <div class="card"><div class="icon">🌐</div><h3>دنیای متصل‌تر</h3><p>تعداد بیشتری از اشیای روزمره به شبکه‌های ارتباطی متصل خواهند شد.</p></div>
-  </div>
+<div class="center">
 
-  <div class="stat-row">
-    <div class="stat"><strong>IoT</strong><span>Internet of Things</span></div>
-    <div class="stat"><strong>Data</strong><span>داده، قلب سیستم‌های متصل</span></div>
-    <div class="stat"><strong>AI + IoT</strong><span>ترکیب هوش مصنوعی و اینترنت اشیا</span></div>
-  </div>
+    <div class="eyebrow">
+        06 / APPLICATIONS
+    </div>
+
+    <h2 class="title">
+        کاربردهای <span>اینترنت اشیا</span>
+    </h2>
+
+    <p class="sub">
+        IoT فقط به خانه هوشمند محدود نیست
+    </p>
+
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <div class="icon">🏠</div>
+        <h3>خانه هوشمند</h3>
+        <p>کنترل روشنایی، دما، امنیت و لوازم خانگی.</p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🏥</div>
+        <h3>سلامت</h3>
+        <p>پایش از راه دور برخی شاخص‌ها و تجهیزات متصل.</p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🏭</div>
+        <h3>صنعت</h3>
+        <p>پایش ماشین‌آلات و نگهداری پیش‌بینانه.</p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌾</div>
+        <h3>کشاورزی</h3>
+        <p>اندازه‌گیری رطوبت خاک و مدیریت منابع.</p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🚦</div>
+        <h3>شهر هوشمند</h3>
+        <p>مدیریت ترافیک، پارکینگ و زیرساخت شهری.</p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🚚</div>
+        <h3>حمل‌ونقل</h3>
+        <p>ردیابی و مدیریت ناوگان و خودروهای متصل.</p>
+    </div>
+
+</div>
+
 </section>
 
+
+<!-- 08 BENEFITS -->
 <section class="slide" id="s7">
-  <div class="hero center">
-    <div class="earth-wrap"><div class="earth"></div></div>
-    <div class="eyebrow">END OF PRESENTATION</div>
-    <h2 class="title">دنیای ما در حال <span style="color:#00e5ff">متصل‌تر شدن</span> است</h2>
-    <p class="sub">اینترنت اشیا پلی میان دنیای فیزیکی و دنیای دیجیتال است؛ از یک سنسور ساده تا یک شهر هوشمند.</p>
-    <div class="quote">«وقتی اشیا بتوانند داده تولید کنند، ارتباط برقرار کنند و واکنش نشان دهند، محیط اطراف ما هوشمندتر می‌شود.»</div>
-    <p style="color:#718392;font-size:13px">پایان ارائه • اینترنت اشیا (IoT)</p>
-  </div>
+
+<div class="center">
+
+    <div class="eyebrow">
+        07 / BENEFITS & CHALLENGES
+    </div>
+
+    <h2 class="title">
+        مزایا و <span>چالش‌ها</span>
+    </h2>
+
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <div class="icon">⚡</div>
+        <h3>اتوماسیون</h3>
+        <p>
+            انجام خودکار بسیاری از کارها
+            بر اساس داده و شرایط محیط.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">📊</div>
+        <h3>تصمیم‌گیری داده‌محور</h3>
+        <p>
+            استفاده از داده‌های واقعی
+            برای شناخت بهتر وضعیت سیستم.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">💰</div>
+        <h3>بهینه‌سازی</h3>
+        <p>
+            کمک به کاهش مصرف منابع
+            و افزایش بهره‌وری در برخی کاربردها.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🔐</div>
+        <h3>امنیت و حریم خصوصی</h3>
+        <p>
+            افزایش دستگاه‌های متصل،
+            نیاز به حفاظت بهتر از داده‌ها را بیشتر می‌کند.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌐</div>
+        <h3>وابستگی به شبکه</h3>
+        <p>
+            پایداری ارتباط و زیرساخت شبکه
+            برای بسیاری از کاربردها اهمیت دارد.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🧩</div>
+        <h3>استانداردها</h3>
+        <p>
+            هماهنگی میان دستگاه‌ها و پروتکل‌های مختلف
+            یکی از مسائل مهم IoT است.
+        </p>
+    </div>
+
+</div>
+
 </section>
+
+
+<!-- 09 FUTURE -->
+<section class="slide" id="s8">
+
+<div class="center">
+
+    <div class="eyebrow">
+        08 / FUTURE
+    </div>
+
+    <h2 class="title">
+        آینده <span>اینترنت اشیا</span>
+    </h2>
+
+    <p class="sub">
+        ترکیب IoT با فناوری‌های جدید می‌تواند
+        سیستم‌های متصل را هوشمندتر کند.
+    </p>
+
+</div>
+
+<div class="future">
+
+    <div class="card">
+        <div class="icon">🤖</div>
+        <h3>هوش مصنوعی</h3>
+        <p>
+            تحلیل حجم زیادی از داده‌های دستگاه‌ها
+            و استخراج الگوهای مفید.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🏙️</div>
+        <h3>شهرهای هوشمند</h3>
+        <p>
+            اتصال زیرساخت‌های شهری
+            برای پایش و مدیریت بهتر.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🚘</div>
+        <h3>حمل‌ونقل متصل</h3>
+        <p>
+            ارتباط میان خودروها،
+            جاده‌ها و سامانه‌های حمل‌ونقل.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌐</div>
+        <h3>دنیای متصل‌تر</h3>
+        <p>
+            اتصال تعداد بیشتری از اشیای
+            روزمره به شبکه‌های ارتباطی.
+        </p>
+    </div>
+
+</div>
+
+<div class="stat-row">
+
+    <div class="stat">
+        <strong>IoT</strong>
+        <span>Internet of Things</span>
+    </div>
+
+    <div class="stat">
+        <strong>DATA</strong>
+        <span>قلب سیستم‌های متصل</span>
+    </div>
+
+    <div class="stat">
+        <strong>AI + IoT</strong>
+        <span>هوش مصنوعی + اینترنت اشیا</span>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- 10 END -->
+<section class="slide" id="s9">
+
+<div class="hero center">
+
+    <div class="earth-wrap">
+        <div class="earth"></div>
+    </div>
+
+    <div class="eyebrow">
+        END OF PRESENTATION
+    </div>
+
+    <h2 class="title">
+        آینده، <span>متصل</span> است
+    </h2>
+
+    <p class="sub">
+        اینترنت اشیا پلی میان دنیای فیزیکی
+        و دنیای دیجیتال است؛
+        از یک سنسور ساده تا یک شهر هوشمند.
+    </p>
+
+    <div class="quote">
+        «وقتی اشیا بتوانند داده تولید کنند،
+        ارتباط برقرار کنند و واکنش نشان دهند،
+        محیط اطراف ما هوشمندتر می‌شود.»
+    </div>
+
+    <div class="student-info">
+
+        <div class="info-pill">
+            ارائه‌دهنده:
+            <strong>احسان نامی</strong>
+        </div>
+
+        <div class="info-pill">
+            استاد:
+            <strong>غفوری</strong>
+        </div>
+
+    </div>
+
+    <p style="color:#657886;font-size:12px;margin-top:25px">
+        پایان ارائه • اینترنت اشیا (IoT)
+    </p>
+
+</div>
+
+</section>
+
 
 <footer>
-  <div class="counter" id="counter">01 / 08</div>
-  <div class="nav">
-    <button onclick="prev()">→</button>
-    <button onclick="next()">←</button>
-  </div>
+
+    <div class="counter" id="counter">
+        01 / 10
+    </div>
+
+    <div class="nav">
+
+        <button onclick="prev()">
+            →
+        </button>
+
+        <button onclick="next()">
+            ←
+        </button>
+
+    </div>
+
 </footer>
 
 </div>
 
+
+<!-- MODAL -->
 <div id="info">
-  <button class="close" onclick="hideInfo()">×</button>
-  <h3 id="infoTitle"></h3>
-  <p id="infoText"></p>
+
+    <button class="close" onclick="hideInfo()">
+        ×
+    </button>
+
+    <h3 id="infoTitle"></h3>
+
+    <p id="infoText"></p>
+
 </div>
 
+
 <script>
-const slides=[...document.querySelectorAll('.slide')];
+
+const slides=[
+    ...document.querySelectorAll('.slide')
+];
+
 let current=0;
-const progress=document.getElementById('progress');
+
+const progress=
+document.getElementById('progress');
+
+
+/* CREATE PROGRESS DOTS */
 
 slides.forEach((_,i)=>{
-  const d=document.createElement('i');
-  d.className='dot'+(i===0?' active':'');
-  d.onclick=()=>go(i);
-  progress.appendChild(d);
+
+    const d=
+    document.createElement('i');
+
+    d.className=
+    'dot'+
+    (i===0?' active':'');
+
+    d.onclick=()=>{
+        go(i);
+    };
+
+    progress.appendChild(d);
+
 });
+
+
+/* GO TO SLIDE */
 
 function go(n){
-  current=Math.max(0,Math.min(slides.length-1,n));
-  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
-  [...progress.children].forEach((d,i)=>d.classList.toggle('active',i===current));
-  document.getElementById('counter').textContent=
-    String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+
+    current=
+    Math.max(
+        0,
+        Math.min(
+            slides.length-1,
+            n
+        )
+    );
+
+    slides.forEach((s,i)=>{
+
+        s.classList.toggle(
+            'active',
+            i===current
+        );
+
+    });
+
+    [
+        ...progress.children
+    ].forEach((d,i)=>{
+
+        d.classList.toggle(
+            'active',
+            i===current
+        );
+
+    });
+
+    document
+    .getElementById('counter')
+    .textContent=
+    String(current+1)
+    .padStart(2,'0')
+    +' / '+
+    String(slides.length)
+    .padStart(2,'0');
+
 }
 
-function next(){go(current+1)}
-function prev(){go(current-1)}
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' '){
-    e.preventDefault();
-    next()
-  }
+/* NEXT / PREVIOUS */
 
-  if(e.key==='ArrowRight'||e.key==='PageUp'){
-    e.preventDefault();
-    prev()
-  }
+function next(){
+    go(current+1);
+}
 
-  if(e.key==='Escape')hideInfo();
-});
+function prev(){
+    go(current-1);
+}
+
+
+/* KEYBOARD */
+
+document.addEventListener(
+    'keydown',
+    e=>{
+
+        if(
+            e.key==='ArrowLeft' ||
+            e.key==='PageDown' ||
+            e.key===' '
+        ){
+
+            e.preventDefault();
+            next();
+
+        }
+
+        if(
+            e.key==='ArrowRight' ||
+            e.key==='PageUp'
+        ){
+
+            e.preventDefault();
+            prev();
+
+        }
+
+        if(
+            e.key==='Escape'
+        ){
+
+            hideInfo();
+
+        }
+
+    }
+);
+
+
+/* INFO MODAL */
 
 function showInfo(title,text){
-  document.getElementById('infoTitle').textContent=title;
-  document.getElementById('infoText').textContent=text;
-  document.getElementById('info').classList.add('show');
+
+    document
+    .getElementById('infoTitle')
+    .textContent=title;
+
+    document
+    .getElementById('infoText')
+    .textContent=text;
+
+    document
+    .getElementById('info')
+    .classList.add('show');
+
 }
+
 
 function hideInfo(){
-  document.getElementById('info').classList.remove('show')
+
+    document
+    .getElementById('info')
+    .classList.remove('show');
+
 }
 
-const p=document.getElementById('particles');
 
-for(let i=0;i<65;i++){
-  const x=document.createElement('i');
+/* PARTICLES */
 
-  x.style.cssText=
-    `position:absolute;
-    width:${Math.random()*2.5+1}px;
-    height:${Math.random()*2.5+1}px;
+const p=
+document.getElementById('particles');
+
+for(
+    let i=0;
+    i<80;
+    i++
+){
+
+    const x=
+    document.createElement('i');
+
+    const size=
+    Math.random()*2.5+1;
+
+    x.style.cssText=
+    `
+    position:absolute;
+    width:${size}px;
+    height:${size}px;
     border-radius:50%;
     background:#00e5ff;
     opacity:${Math.random()*.55+.1};
     left:${Math.random()*100}%;
     top:${Math.random()*100}%;
-    box-shadow:0 0 8px #00e5ff;
-    animation:floatParticle ${Math.random()*8+5}s ease-in-out ${Math.random()*-8}s infinite alternate`;
+    box-shadow:0 0 9px #00e5ff;
+    animation:
+    floatParticle
+    ${Math.random()*8+5}s
+    ease-in-out
+    ${Math.random()*-8}s
+    infinite alternate;
+    `;
 
-  p.appendChild(x);
+    p.appendChild(x);
+
 }
 
-const st=document.createElement('style');
+
+/* PARTICLE ANIMATION */
+
+const st=
+document.createElement('style');
 
 st.textContent=
-  '@keyframes floatParticle{to{transform:translate3d('+
-  ((Math.random()*80)-40)+'px,'+
-  ((Math.random()*80)-40)+'px,0);opacity:.05}}';
+`
+@keyframes floatParticle{
+
+    to{
+
+        transform:
+        translate3d(
+            ${(Math.random()*100)-50}px,
+            ${(Math.random()*100)-50}px,
+            0
+        );
+
+        opacity:.05;
+
+    }
+
+}
+`;
 
 document.head.appendChild(st);
+
+
+/* TOUCH SWIPE */
+
+let touchStartX=0;
+
+document.addEventListener(
+    'touchstart',
+    e=>{
+
+        touchStartX=
+        e.changedTouches[0].screenX;
+
+    }
+);
+
+document.addEventListener(
+    'touchend',
+    e=>{
+
+        const touchEndX=
+        e.changedTouches[0].screenX;
+
+        const diff=
+        touchStartX-touchEndX;
+
+        if(
+            Math.abs(diff)>60
+        ){
+
+            if(diff>0)
+                next();
+            else
+                prev();
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
