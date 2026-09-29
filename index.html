@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ارائه اینترنت اشیا | IoT</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden}
+body{
+  font-family:Vazirmatn,sans-serif;
+  background:#02050b;
+  color:#eef7ff;
+  perspective:1200px;
+}
+
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(0,210,255,.13),transparent 28%),
+    radial-gradient(circle at 15% 80%,rgba(65,55,255,.10),transparent 30%),
+    radial-gradient(circle at 85% 15%,rgba(0,255,180,.08),transparent 30%);
+}
+
+#particles{position:fixed;inset:0;z-index:0}
+.app{position:relative;z-index:2;width:100%;height:100%}
+
+.grid{
+ position:fixed;inset:-30%;opacity:.16;pointer-events:none;
+ background-image:linear-gradient(rgba(0,220,255,.12) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(0,220,255,.12) 1px,transparent 1px);
+ background-size:55px 55px;transform:perspective(500px) rotateX(65deg) translateY(25%);
+ animation:gridMove 15s linear infinite;
+}
+
+@keyframes gridMove{to{transform:perspective(500px) rotateX(65deg) translateY(10%)}}
+
+header{
+ position:fixed;top:0;left:0;right:0;height:78px;padding:0 35px;
+ display:flex;align-items:center;justify-content:space-between;
+ border-bottom:1px solid rgba(255,255,255,.08);
+ background:rgba(2,5,11,.55);backdrop-filter:blur(18px);z-index:20;
+}
+
+.brand{display:flex;align-items:center;gap:12px;font-weight:800}
+
+.logo{
+ width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+ border:1px solid rgba(0,229,255,.5);color:#00e5ff;
+ box-shadow:0 0 25px rgba(0,229,255,.2);font-size:19px
+}
+
+.brand span{color:#00e5ff}
+.progress{display:flex;gap:7px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:#26323d;transition:.3s}
+.dot.active{width:28px;border-radius:8px;background:#00e5ff;box-shadow:0 0 15px #00e5ff}
+
+.slide{
+ position:absolute;inset:78px 0 0;display:none;overflow:auto;
+ padding:35px 7vw 100px;scrollbar-width:none;
+}
+
+.slide::-webkit-scrollbar{display:none}
+.slide.active{display:block;animation:enter .55s ease}
+
+@keyframes enter{from{opacity:0;transform:translateZ(-100px) rotateX(4deg)}to{opacity:1;transform:none}}
+
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hero{height:calc(100vh - 78px);padding-bottom:70px}
+
+.eyebrow{
+ color:#00e5ff;font-size:13px;letter-spacing:4px;text-transform:uppercase;
+ margin-bottom:18px
+}
+
+h1{font-size:clamp(42px,8vw,100px);line-height:1;font-weight:900;
+ text-shadow:0 0 45px rgba(0,229,255,.25)}
+
+h1 span{color:#00e5ff}
+.hero p{margin-top:25px;color:#a9b9c8;max-width:700px;line-height:2;font-size:17px}
+
+.btn{
+ margin-top:32px;border:1px solid #00e5ff;background:rgba(0,229,255,.08);
+ color:white;padding:14px 28px;border-radius:14px;font:inherit;cursor:pointer;
+ box-shadow:0 0 25px rgba(0,229,255,.13);transition:.25s
+}
+
+.btn:hover{background:#00e5ff;color:#001018;transform:translateY(-3px);box-shadow:0 10px 35px rgba(0,229,255,.3)}
+
+.earth-wrap{position:relative;width:300px;height:300px;margin-bottom:35px}
+
+.earth{
+ position:absolute;inset:20px;border-radius:50%;
+ background:
+ radial-gradient(circle at 32% 28%,#d8ffff 0 1%,transparent 2%),
+ radial-gradient(circle at 55% 40%,#00d9ff 0 3%,transparent 4%),
+ radial-gradient(circle at 25% 55%,#00a5ff 0 5%,transparent 6%),
+ radial-gradient(circle at 65% 70%,#1f4cff 0 6%,transparent 7%),
+ radial-gradient(circle at 40% 65%,#00ffc8 0 8%,transparent 9%),
+ radial-gradient(circle,#08223a 20%,#03101d 70%);
+ box-shadow:0 0 45px #00bfff, inset -30px -20px 50px #000;
+ animation:float 5s ease-in-out infinite,spin 18s linear infinite;
+}
+
+.earth:after{content:"";position:absolute;inset:-25px;border:1px solid rgba(0,229,255,.35);border-radius:50%;transform:rotateX(70deg);box-shadow:0 0 30px rgba(0,229,255,.2)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes float{50%{transform:translateY(-12px)}}
+
+.title{font-size:clamp(30px,5vw,55px);font-weight:900;margin-bottom:12px}
+.sub{color:#8fa1b2;line-height:2;margin-bottom:28px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;max-width:1100px;margin:auto}
+
+.card{
+ min-height:190px;padding:25px;border:1px solid rgba(255,255,255,.09);
+ border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+ backdrop-filter:blur(12px);transition:.35s;transform-style:preserve-3d
+}
+
+.card:hover{transform:translateY(-8px) rotateX(3deg) rotateY(-3deg);border-color:rgba(0,229,255,.5);box-shadow:0 20px 50px rgba(0,0,0,.35),0 0 25px rgba(0,229,255,.08)}
+
+.icon{font-size:38px;margin-bottom:15px}
+.card h3{font-size:19px;margin-bottom:9px}
+.card p{font-size:14px;color:#99a9b8;line-height:1.9}
+
+.flow{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:35px auto;max-width:1050px}
+
+.node{
+ width:150px;height:130px;border-radius:20px;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;border:1px solid rgba(0,229,255,.25);
+ background:rgba(0,229,255,.045);box-shadow:inset 0 0 25px rgba(0,229,255,.03);
+ transition:.3s
+}
+
+.node:hover{transform:translateZ(30px) scale(1.05);border-color:#00e5ff;box-shadow:0 0 30px rgba(0,229,255,.2)}
+.node b{font-size:31px;margin-bottom:7px}
+.node small{color:#9fb0bf}
+.arrow{font-size:25px;color:#00e5ff;animation:pulse 1.2s infinite}
+
+@keyframes pulse{50%{transform:translateX(-5px);opacity:.5}}
+
+.iot-room{
+ position:relative;max-width:1050px;height:430px;margin:10px auto;
+ border:1px solid rgba(255,255,255,.1);border-radius:28px;
+ background:linear-gradient(145deg,rgba(13,29,45,.9),rgba(3,9,16,.9));
+ overflow:hidden;box-shadow:0 25px 70px rgba(0,0,0,.4);
+}
+
+.floor{position:absolute;left:-10%;right:-10%;bottom:-80px;height:190px;
+ background:linear-gradient(transparent,rgba(0,229,255,.08));
+ transform:perspective(500px) rotateX(55deg)}
+
+.room-item{
+ position:absolute;width:110px;height:110px;border-radius:22px;
+ display:grid;place-items:center;text-align:center;font-size:40px;
+ background:rgba(5,15,25,.8);border:1px solid rgba(0,229,255,.35);
+ box-shadow:0 0 25px rgba(0,229,255,.08);cursor:pointer;transition:.3s
+}
+
+.room-item span{display:block;font-size:12px;color:#9eb1c1;margin-top:4px}
+.room-item:hover{transform:scale(1.12) translateZ(40px);border-color:#00e5ff;box-shadow:0 0 35px rgba(0,229,255,.25)}
+
+.i1{top:45px;right:13%}
+.i2{top:170px;right:42%}
+.i3{top:55px;left:13%}
+.i4{bottom:35px;left:37%}
+.i5{bottom:35px;right:12%}
+
+.stat-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:30px 0}
+
+.stat{min-width:190px;padding:22px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08)}
+.stat strong{display:block;font-size:31px;color:#00e5ff}
+.stat span{color:#9aabb9;font-size:13px}
+
+.future{
+ min-height:300px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;
+ max-width:1000px;margin:25px auto
+}
+
+.future .card{text-align:center;min-height:210px}
+
+.quote{
+ max-width:850px;margin:35px auto;padding:35px;border-radius:25px;
+ border:1px solid rgba(0,229,255,.25);background:rgba(0,229,255,.04);
+ text-align:center;font-size:24px;line-height:2
+}
+
+footer{
+ position:fixed;bottom:0;left:0;right:0;height:64px;padding:0 30px;z-index:25;
+ display:flex;justify-content:space-between;align-items:center;
+ background:linear-gradient(transparent,rgba(2,5,11,.92));pointer-events:none
+}
+
+.nav{display:flex;gap:9px;pointer-events:auto}
+
+.nav button{
+ border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+ color:white;width:44px;height:44px;border-radius:12px;cursor:pointer;font-size:18px
+}
+
+.nav button:hover{border-color:#00e5ff;color:#00e5ff}
+.counter{font-size:12px;color:#738595}
+
+#info{
+ position:fixed;inset:auto 50% 50%;transform:translate(50%,50%) scale(.8);
+ width:min(420px,88vw);padding:28px;border-radius:22px;
+ background:rgba(3,10,18,.96);border:1px solid #00e5ff;
+ box-shadow:0 0 70px rgba(0,229,255,.18);z-index:100;opacity:0;pointer-events:none;transition:.25s
+}
+
+#info.show{opacity:1;transform:translate(50%,50%) scale(1);pointer-events:auto}
+#info h3{color:#00e5ff;margin-bottom:12px}
+#info p{color:#b4c2ce;line-height:2;font-size:14px}
+.close{position:absolute;left:15px;top:12px;background:none;border:0;color:#aaa;font-size:20px;cursor:pointer}
+
+@media(max-width:650px){
+ header{padding:0 15px}.brand{font-size:13px}.progress{display:none}
+ .slide{padding:25px 18px 90px}.hero{padding-bottom:30px}
+ .earth-wrap{width:230px;height:230px}.earth{inset:15px}
+ .flow{gap:7px}.node{width:125px;height:110px}.arrow{display:none}
+ .iot-room{height:470px}.room-item{width:90px;height:90px;font-size:31px}
+ .i1{right:5%}.i2{right:36%;top:185px}.i3{left:5%}.i4{left:8%;bottom:30px}.i5{right:8%;bottom:30px}
+ footer{padding:0 15px}
+}
+</style>
+</head>
+
+<body>
+<div id="particles"></div>
+<div class="grid"></div>
+
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="logo">⌁</div>
+    <div>ارائه <span>اینترنت اشیا</span></div>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<section class="slide active" id="s0">
+  <div class="hero center">
+    <div class="earth-wrap"><div class="earth"></div></div>
+    <div class="eyebrow">Interactive University Presentation</div>
+    <h1>INTERNET <span>OF THINGS</span></h1>
+    <p>اینترنت اشیا؛ جایی که اشیای اطراف ما با اتصال به اینترنت، داده تولید می‌کنند، با یکدیگر ارتباط برقرار می‌کنند و می‌توانند به‌صورت هوشمند واکنش نشان دهند.</p>
+    <button class="btn" onclick="go(1)">شروع ارائه ←</button>
+  </div>
+</section>
+
+<section class="slide" id="s1">
+  <div class="center">
+    <div class="eyebrow">01 / CONCEPT</div>
+    <h2 class="title">اینترنت اشیا چیست؟</h2>
+    <p class="sub">IoT یا Internet of Things به شبکه‌ای از اشیای فیزیکی گفته می‌شود که با حسگر، نرم‌افزار و اتصال شبکه می‌توانند داده جمع‌آوری و تبادل کنند.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="icon">📡</div><h3>اتصال</h3><p>دستگاه‌ها از طریق Wi-Fi، Bluetooth، شبکه موبایل و فناوری‌های دیگر به شبکه متصل می‌شوند.</p></div>
+    <div class="card"><div class="icon">🌡️</div><h3>حسگر</h3><p>حسگرها اطلاعاتی مانند دما، نور، حرکت، فشار و موقعیت را اندازه‌گیری می‌کنند.</p></div>
+    <div class="card"><div class="icon">☁️</div><h3>داده</h3><p>اطلاعات جمع‌آوری‌شده می‌تواند در سرور یا فضای ابری پردازش و تحلیل شود.</p></div>
+    <div class="card"><div class="icon">⚙️</div><h3>اقدام</h3><p>سیستم می‌تواند بر اساس داده‌ها یک عمل مشخص انجام دهد؛ مثل روشن کردن کولر.</p></div>
+  </div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="center">
+    <div class="eyebrow">02 / HOW IT WORKS</div>
+    <h2 class="title">اینترنت اشیا چگونه کار می‌کند؟</h2>
+    <p class="sub">یک چرخه ساده از دریافت اطلاعات تا تصمیم‌گیری و انجام عمل</p>
+  </div>
+
+  <div class="flow">
+    <div class="node"><b>🌡️</b><small>Sensor<br>حسگر</small></div><div class="arrow">←</div>
+    <div class="node"><b>📶</b><small>Network<br>شبکه</small></div><div class="arrow">←</div>
+    <div class="node"><b>☁️</b><small>Cloud<br>پردازش</small></div><div class="arrow">←</div>
+    <div class="node"><b>🧠</b><small>Analysis<br>تحلیل</small></div><div class="arrow">←</div>
+    <div class="node"><b>⚡</b><small>Action<br>اقدام</small></div>
+  </div>
+
+  <div class="quote">مثال: سنسور دمای خانه → ارسال داده → تحلیل دما → تشخیص گرمای زیاد → روشن شدن خودکار کولر</div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="center">
+    <div class="eyebrow">03 / SMART WORLD</div>
+    <h2 class="title">دنیای متصل</h2>
+    <p class="sub">روی هر وسیله کلیک کنید تا نقش آن در اینترنت اشیا را ببینید</p>
+  </div>
+
+  <div class="iot-room">
+    <div class="floor"></div>
+
+    <div class="room-item i1" onclick="showInfo('خانه هوشمند','لامپ‌ها، ترموستات، دوربین‌ها و لوازم خانگی می‌توانند به شبکه متصل شوند و از راه دور یا به‌صورت خودکار کنترل شوند.')">
+      🏠<span>خانه هوشمند</span>
+    </div>
+
+    <div class="room-item i2" onclick="showInfo('خودروی متصل','خودروهای متصل می‌توانند اطلاعاتی مانند موقعیت، وضعیت خودرو و داده‌های مربوط به رانندگی را با سامانه‌های دیگر تبادل کنند.')">
+      🚗<span>خودروی متصل</span>
+    </div>
+
+    <div class="room-item i3" onclick="showInfo('پزشکی هوشمند','دستگاه‌های پوشیدنی و تجهیزات پزشکی متصل می‌توانند برخی داده‌های بدن یا وضعیت بیمار را ثبت و منتقل کنند.')">
+      ❤️<span>پزشکی</span>
+    </div>
+
+    <div class="room-item i4" onclick="showInfo('کشاورزی هوشمند','حسگرهای خاک، رطوبت و دما به کشاورز کمک می‌کنند شرایط مزرعه را دقیق‌تر پایش کند.')">
+      🌱<span>کشاورزی</span>
+    </div>
+
+    <div class="room-item i5" onclick="showInfo('صنعت هوشمند','ماشین‌آلات و تجهیزات صنعتی می‌توانند داده‌های عملکردی تولید کنند و برای پایش و نگهداری مورد استفاده قرار گیرند.')">
+      🏭<span>صنعت</span>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="center">
+    <div class="eyebrow">04 / APPLICATIONS</div>
+    <h2 class="title">کاربردهای اینترنت اشیا</h2>
+    <p class="sub">IoT فقط به خانه هوشمند محدود نیست</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="icon">🏠</div><h3>خانه هوشمند</h3><p>کنترل روشنایی، دما، امنیت و لوازم خانگی.</p></div>
+    <div class="card"><div class="icon">🏥</div><h3>سلامت</h3><p>پایش از راه دور برخی شاخص‌ها و تجهیزات متصل.</p></div>
+    <div class="card"><div class="icon">🏭</div><h3>صنعت</h3><p>پایش ماشین‌آلات، تولید داده و نگهداری پیش‌بینانه.</p></div>
+    <div class="card"><div class="icon">🌾</div><h3>کشاورزی</h3><p>اندازه‌گیری رطوبت خاک و مدیریت هوشمند منابع.</p></div>
+    <div class="card"><div class="icon">🚦</div><h3>شهر هوشمند</h3><p>مدیریت ترافیک، پارکینگ، روشنایی و زیرساخت شهری.</p></div>
+    <div class="card"><div class="icon">🚚</div><h3>حمل‌ونقل</h3><p>ردیابی، مدیریت ناوگان و تبادل اطلاعات خودروها.</p></div>
+  </div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="center">
+    <div class="eyebrow">05 / ADVANTAGES</div>
+    <h2 class="title">مزایا و چالش‌ها</h2>
+    <p class="sub">اتصال هوشمند فرصت‌های زیادی ایجاد می‌کند، اما بدون چالش نیست</p>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="icon">⚡</div><h3>اتوماسیون</h3><p>انجام خودکار بسیاری از کارها بر اساس داده و شرایط محیط.</p></div>
+    <div class="card"><div class="icon">📊</div><h3>تصمیم‌گیری داده‌محور</h3><p>استفاده از داده‌های واقعی برای شناخت بهتر وضعیت سیستم.</p></div>
+    <div class="card"><div class="icon">💰</div><h3>بهینه‌سازی</h3><p>در برخی کاربردها می‌تواند به کاهش مصرف منابع و هزینه‌ها کمک کند.</p></div>
+    <div class="card"><div class="icon">🔐</div><h3>امنیت و حریم خصوصی</h3><p>افزایش تعداد دستگاه‌های متصل، سطح حمله و نیاز به حفاظت از داده‌ها را بیشتر می‌کند.</p></div>
+    <div class="card"><div class="icon">🌐</div><h3>وابستگی به شبکه</h3><p>ارتباط، زیرساخت و پایداری شبکه برای بسیاری از کاربردها اهمیت دارد.</p></div>
+    <div class="card"><div class="icon">🧩</div><h3>استانداردها</h3><p>هماهنگی دستگاه‌ها و پروتکل‌های مختلف یکی از مسائل مهم اکوسیستم IoT است.</p></div>
+  </div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="center">
+    <div class="eyebrow">06 / FUTURE</div>
+    <h2 class="title">آینده اینترنت اشیا</h2>
+    <p class="sub">با ترکیب IoT با فناوری‌های دیگر، سیستم‌های متصل می‌توانند هوشمندتر شوند</p>
+  </div>
+
+  <div class="future">
+    <div class="card"><div class="icon">🤖</div><h3>هوش مصنوعی</h3><p>تحلیل حجم زیادی از داده‌های دستگاه‌ها و استخراج الگوهای مفید.</p></div>
+    <div class="card"><div class="icon">🏙️</div><h3>شهرهای هوشمند</h3><p>اتصال زیرساخت‌های شهری برای پایش و مدیریت بهتر.</p></div>
+    <div class="card"><div class="icon">🚘</div><h3>حمل‌ونقل متصل</h3><p>ارتباط میان خودروها، جاده‌ها و سامانه‌های حمل‌ونقل.</p></div>
+    <div class="card"><div class="icon">🌐</div><h3>دنیای متصل‌تر</h3><p>تعداد بیشتری از اشیای روزمره به شبکه‌های ارتباطی متصل خواهند شد.</p></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><strong>IoT</strong><span>Internet of Things</span></div>
+    <div class="stat"><strong>Data</strong><span>داده، قلب سیستم‌های متصل</span></div>
+    <div class="stat"><strong>AI + IoT</strong><span>ترکیب هوش مصنوعی و اینترنت اشیا</span></div>
+  </div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="hero center">
+    <div class="earth-wrap"><div class="earth"></div></div>
+    <div class="eyebrow">END OF PRESENTATION</div>
+    <h2 class="title">دنیای ما در حال <span style="color:#00e5ff">متصل‌تر شدن</span> است</h2>
+    <p class="sub">اینترنت اشیا پلی میان دنیای فیزیکی و دنیای دیجیتال است؛ از یک سنسور ساده تا یک شهر هوشمند.</p>
+    <div class="quote">«وقتی اشیا بتوانند داده تولید کنند، ارتباط برقرار کنند و واکنش نشان دهند، محیط اطراف ما هوشمندتر می‌شود.»</div>
+    <p style="color:#718392;font-size:13px">پایان ارائه • اینترنت اشیا (IoT)</p>
+  </div>
+</section>
+
+<footer>
+  <div class="counter" id="counter">01 / 08</div>
+  <div class="nav">
+    <button onclick="prev()">→</button>
+    <button onclick="next()">←</button>
+  </div>
+</footer>
+
+</div>
+
+<div id="info">
+  <button class="close" onclick="hideInfo()">×</button>
+  <h3 id="infoTitle"></h3>
+  <p id="infoText"></p>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+const progress=document.getElementById('progress');
+
+slides.forEach((_,i)=>{
+  const d=document.createElement('i');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>go(i);
+  progress.appendChild(d);
+});
+
+function go(n){
+  current=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+  [...progress.children].forEach((d,i)=>d.classList.toggle('active',i===current));
+  document.getElementById('counter').textContent=
+    String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+}
+
+function next(){go(current+1)}
+function prev(){go(current-1)}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' '){
+    e.preventDefault();
+    next()
+  }
+
+  if(e.key==='ArrowRight'||e.key==='PageUp'){
+    e.preventDefault();
+    prev()
+  }
+
+  if(e.key==='Escape')hideInfo();
+});
+
+function showInfo(title,text){
+  document.getElementById('infoTitle').textContent=title;
+  document.getElementById('infoText').textContent=text;
+  document.getElementById('info').classList.add('show');
+}
+
+function hideInfo(){
+  document.getElementById('info').classList.remove('show')
+}
+
+const p=document.getElementById('particles');
+
+for(let i=0;i<65;i++){
+  const x=document.createElement('i');
+
+  x.style.cssText=
+    `position:absolute;
+    width:${Math.random()*2.5+1}px;
+    height:${Math.random()*2.5+1}px;
+    border-radius:50%;
+    background:#00e5ff;
+    opacity:${Math.random()*.55+.1};
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    box-shadow:0 0 8px #00e5ff;
+    animation:floatParticle ${Math.random()*8+5}s ease-in-out ${Math.random()*-8}s infinite alternate`;
+
+  p.appendChild(x);
+}
+
+const st=document.createElement('style');
+
+st.textContent=
+  '@keyframes floatParticle{to{transform:translate3d('+
+  ((Math.random()*80)-40)+'px,'+
+  ((Math.random()*80)-40)+'px,0);opacity:.05}}';
+
+document.head.appendChild(st);
+</script>
+
+</body>
+</html>
