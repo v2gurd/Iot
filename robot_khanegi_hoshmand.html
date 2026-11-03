@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ربات خانگی هوشمند | ارائه پروژه‌محور</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+:root{--bg:#07111b;--panel:#0e1d2b;--panel2:#13283a;--text:#edf7ff;--muted:#9db2c5;--green:#57f2b2;--cyan:#56d9ff;--line:#244258;--orange:#ffbd69}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 15%,#123247 0,transparent 32%),radial-gradient(circle at 85% 80%,#12382f 0,transparent 30%),var(--bg);color:var(--text);font-family:'Vazirmatn',Tahoma,sans-serif;overflow:hidden}
+button{font:inherit;cursor:pointer}.deck{height:100vh;display:flex;flex-direction:column}.top{height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;border-bottom:1px solid #ffffff13;background:#07111bcc;backdrop-filter:blur(14px);z-index:5}.brand{display:flex;align-items:center;gap:10px;font-weight:800}.brand-mark{width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--cyan));display:grid;place-items:center;color:#07111b;font-weight:900}.top small{color:var(--muted)}.top-actions{display:flex;gap:8px}.iconbtn{border:1px solid var(--line);background:#102234;color:var(--text);border-radius:10px;padding:7px 12px;font-size:13px}.iconbtn:hover{border-color:var(--green);color:var(--green)}
+main{position:relative;flex:1;min-height:0}.slide{position:absolute;inset:0;padding:4.5vh 8vw 5vh;display:none;overflow:auto;animation:enter .55s cubic-bezier(.2,.8,.2,1)}.slide.active{display:flex;flex-direction:column;justify-content:center}.slide.scroll{justify-content:flex-start;padding-top:5vh}@keyframes enter{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:none}}
+.eyebrow{color:var(--green);font-weight:700;letter-spacing:.4px;font-size:14px;margin-bottom:14px}.slide h1{font-size:clamp(36px,5.6vw,76px);line-height:1.25;margin:0 0 18px;font-weight:900;max-width:1000px}.slide h2{font-size:clamp(27px,3.3vw,44px);line-height:1.35;margin:0 0 18px}.lead{font-size:clamp(17px,1.8vw,23px);line-height:2;color:#c5d7e6;max-width:950px}.accent{color:var(--green)}.cyan{color:var(--cyan)}.muted{color:var(--muted)}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:4vw;align-items:center}.robot-wrap{display:grid;place-items:center;min-height:330px;position:relative}.orb{position:absolute;width:min(34vw,390px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#2a876c55,#56d9ff0b 65%,transparent 70%);border:1px solid #57f2b233;animation:pulse 4s infinite}.robot{position:relative;width:220px;height:265px;filter:drop-shadow(0 20px 35px #0009);animation:float 4s ease-in-out infinite}.robot .head{position:absolute;top:8px;left:42px;width:136px;height:104px;border-radius:42px;background:linear-gradient(145deg,#e7f8ff,#9bb9c8);border:5px solid #6e93a6}.robot .screen{position:absolute;inset:23px 15px;background:#071a29;border-radius:25px;display:flex;justify-content:center;align-items:center;gap:22px;box-shadow:inset 0 0 18px #56d9ff55}.eye{width:14px;height:22px;border-radius:50%;background:var(--green);box-shadow:0 0 15px var(--green);animation:blink 5s infinite}.robot .neck{position:absolute;top:111px;left:96px;width:28px;height:20px;background:#9dbac7}.robot .body{position:absolute;top:125px;left:49px;width:122px;height:115px;border-radius:36px 36px 28px 28px;background:linear-gradient(145deg,#d9eff7,#779bab);border:5px solid #608497}.robot .chest{position:absolute;top:25px;left:37px;width:40px;height:40px;border-radius:50%;background:#092236;border:3px solid #56d9ff;box-shadow:0 0 20px #56d9ff66}.robot .chest:after{content:'';position:absolute;inset:10px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.robot .arm{position:absolute;top:143px;width:27px;height:86px;border-radius:20px;background:linear-gradient(90deg,#91b4c3,#d8edf4);transform-origin:top}.robot .arm.left{left:22px;transform:rotate(13deg)}.robot .arm.right{right:22px;transform:rotate(-13deg)}.robot .wheel{position:absolute;bottom:0;left:66px;width:88px;height:32px;border-radius:50%;background:#142d3d;border:5px solid #54798b}.float-tag{position:absolute;padding:8px 13px;border:1px solid #57f2b255;border-radius:12px;background:#0c2331dd;color:#bdfde4;font-size:12px;animation:float 5s infinite}.tag1{top:14%;right:3%}.tag2{bottom:16%;left:1%;animation-delay:1s}.tag3{top:22%;left:2%;animation-delay:2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}@keyframes pulse{50%{transform:scale(1.08);opacity:.65}}@keyframes blink{0%,46%,50%,100%{transform:scaleY(1)}48%{transform:scaleY(.1)}}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:18px}.card{background:linear-gradient(145deg,#13283a,#0b1a28);border:1px solid var(--line);border-radius:18px;padding:18px 20px;position:relative;overflow:hidden}.card:before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(var(--green),var(--cyan));opacity:.8}.card h3{font-size:17px;margin:0 0 8px;color:#e9f8ff}.card p,.card li{font-size:14px;line-height:1.9;color:#afc3d3;margin:0}.card .num{font-size:25px;font-weight:900;color:var(--green);margin-bottom:5px}.bigquote{font-size:clamp(22px,3vw,36px);font-weight:700;line-height:1.8;border-right:4px solid var(--green);padding-right:22px;max-width:950px}.bullets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px;margin-top:15px}.bullet{display:flex;gap:12px;align-items:flex-start;padding:10px 0;color:#c5d7e6;line-height:1.8}.dot{flex:none;width:9px;height:9px;margin-top:10px;border-radius:50%;background:var(--green);box-shadow:0 0 12px #57f2b2aa}.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:24px 0}.flow span{background:#10283a;border:1px solid #2a5068;border-radius:12px;padding:12px 16px;color:#d9f5ff;font-weight:600}.flow b{color:var(--green);font-size:20px}.timeline{border-right:2px solid #31556b;margin:20px 15px 0 0;padding-right:24px}.timeitem{position:relative;margin:0 0 20px}.timeitem:before{content:'';position:absolute;right:-31px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 12px #57f2b2}.timeitem strong{color:var(--cyan)}.diagram{background:#091a27;border:1px solid #25465c;border-radius:18px;padding:20px;margin-top:15px}.diagram .node{display:inline-block;padding:10px 14px;border:1px solid #36728a;border-radius:12px;background:#102c3e;color:#dff8ff;margin:5px}.diagram .arrow{color:var(--green);padding:0 5px}.table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}.table th,.table td{padding:12px;border-bottom:1px solid #244258;text-align:right;line-height:1.7}.table th{color:var(--green);font-weight:800}.table td{color:#c4d5e2}.speaker{margin-top:22px;border:1px dashed #3b6578;background:#0b1e2b;border-radius:14px;padding:13px 17px;color:#a9c0d0;font-size:13px;line-height:1.9}.speaker strong{color:var(--orange)}.speaker summary{cursor:pointer;color:var(--orange);font-weight:700}.speaker .notes{padding-top:9px}.bottom{height:66px;border-top:1px solid #ffffff13;display:flex;align-items:center;gap:18px;padding:0 4vw;background:#07111bcc}.progress{height:4px;background:#1b3548;flex:1;border-radius:9px;overflow:hidden}.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan));transition:width .3s}.counter{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;min-width:72px;text-align:center}.nav{display:flex;gap:8px}.nav button{border:1px solid var(--line);background:#102234;color:var(--text);border-radius:10px;padding:8px 15px}.nav button.primary{background:var(--green);color:#06141c;border-color:var(--green);font-weight:800}.nav button:disabled{opacity:.35;cursor:not-allowed}.timer{font-size:12px;color:var(--muted);min-width:78px;text-align:center}.timer strong{color:var(--orange)}.speaker-mode .speaker{display:block}.hide-notes .speaker{display:none}.pill{display:inline-block;padding:5px 10px;border:1px solid #326077;border-radius:99px;color:var(--cyan);font-size:12px;margin:4px}
+@media(max-width:760px){.top{height:54px;padding:0 14px}.top small{display:none}.slide{padding:24px 20px 30px}.slide.active{justify-content:flex-start}.slide h1{font-size:39px}.slide h2{font-size:28px}.hero-grid{grid-template-columns:1fr}.robot-wrap{min-height:260px;order:-1}.robot{transform:scale(.8)}.orb{width:250px}.grid2,.grid3,.bullets{grid-template-columns:1fr}.bottom{padding:0 12px;gap:9px}.timer{display:none}.nav button{padding:8px 11px}.counter{min-width:54px}.top-actions .iconbtn{padding:6px 8px;font-size:11px}}
+@media print{body{overflow:visible;background:white;color:#111}.deck{height:auto}.top,.bottom{display:none}main{display:block}.slide{position:relative;display:flex!important;page-break-after:always;min-height:100vh;color:#111;background:white}.card,.diagram,.speaker{background:#f5f7f8;color:#111}.card p,.card li,.lead,.bullet,.table td{color:#333}.speaker{display:block}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<header class="top">
+  <div class="brand"><span class="brand-mark">AI</span><span>خانه هوشمند، دستیار رباتیک</span></div>
+  <small>ارائه پروژه‌محور · از ایده تا نمونه اولیه</small>
+  <div class="top-actions">
+    <button class="iconbtn" id="notesBtn" title="نمایش یا پنهان‌کردن متن سخنران">یادداشت سخنران</button>
+    <button class="iconbtn" id="fullBtn">تمام‌صفحه ⛶</button>
+  </div>
+</header>
+<main id="slides">
+<section class="slide active" data-title="عنوان" data-min="1">
+ <div class="hero-grid">
+  <div><div class="eyebrow">پروژه پژوهشی و کاربردی · اینترنت اشیا + هوش مصنوعی + رباتیک</div>
+   <h1>ربات خانگی<br><span class="accent">هوشمند</span></h1>
+   <p class="lead">از یک وسیله متحرک تا دستیار قابل‌اعتماد خانه؛ بررسی مسئله، معماری، سخت‌افزار، نرم‌افزار، امنیت، نمونه‌سازی و آینده.</p>
+   <div style="margin-top:24px"><span class="pill">مدت ارائه: حدود ۶۰ دقیقه</span><span class="pill">۲۲ بخش آموزشی</span><span class="pill">همراه با سناریوی عملی</span></div>
+  </div>
+  <div class="robot-wrap"><div class="orb"></div><div class="robot"><div class="head"><div class="screen"><i class="eye"></i><i class="eye"></i></div></div><div class="neck"></div><div class="body"><div class="chest"></div></div><div class="arm left"></div><div class="arm right"></div><div class="wheel"></div></div><span class="float-tag tag1">تشخیص گفتار</span><span class="float-tag tag2">حسگرهای محیطی</span><span class="float-tag tag3">تصمیم‌گیری هوشمند</span></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۱ دقیقه</strong><div class="notes">شروع پیشنهادی: «تصور کنید وارد خانه می‌شوید و یک دستیار متحرک وضعیت خانه را بررسی می‌کند، با شما حرف می‌زند، وسایل هوشمند را کنترل می‌کند و در موقعیت اضطراری هشدار می‌دهد. امروز می‌خواهیم ببینیم ساخت چنین رباتی دقیقاً به چه اجزایی نیاز دارد و چطور می‌توان آن را مرحله‌به‌مرحله ساخت.»</div></div>
+</section>
+
+<section class="slide" data-title="نقشه راه" data-min="2">
+ <div class="eyebrow">بخش ۰۱ · نقشه راه</div><h2>در این یک ساعت چه چیزی یاد می‌گیریم؟</h2>
+ <div class="grid3">
+  <div class="card"><div class="num">۰۱</div><h3>شناخت مسئله</h3><p>تعریف ربات خانگی، نیاز کاربران، کاربردها و تفاوت آن با خانه هوشمند.</p></div>
+  <div class="card"><div class="num">۰۲</div><h3>شناخت فناوری</h3><p>حسگرها، عملگرها، اینترنت اشیا، هوش مصنوعی و معماری سیستم.</p></div>
+  <div class="card"><div class="num">۰۳</div><h3>طراحی و ساخت</h3><p>قطعات، الگوریتم حرکت، نرم‌افزار، ارتباطات و نمونه اولیه.</p></div>
+  <div class="card"><div class="num">۰۴</div><h3>آزمون واقعی</h3><p>سناریوهای استفاده، آزمایش، معیارهای ارزیابی و خطاهای محتمل.</p></div>
+  <div class="card"><div class="num">۰۵</div><h3>مسئولیت‌پذیری</h3><p>امنیت سایبری، حریم خصوصی، ایمنی و محدودیت‌های ربات.</p></div>
+  <div class="card"><div class="num">۰۶</div><h3>آینده و جمع‌بندی</h3><p>هزینه، توسعه‌پذیری، بازار و مسیر ارتقای پروژه.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">توضیح دهید که ارائه فقط معرفی چند ربات معروف نیست؛ قرار است یک سامانه را مثل یک پروژه مهندسی از تعریف نیاز تا آزمایش بررسی کنیم. تأکید کنید که در پایان، یک طرح نمونه اولیه قابل‌ساخت خواهیم داشت.</div></div>
+</section>
+
+<section class="slide" data-title="تعریف" data-min="3">
+ <div class="eyebrow">بخش ۰۲ · تعریف مسئله</div><h2>ربات خانگی هوشمند چیست؟</h2>
+ <p class="bigquote">یک سامانه فیزیکیِ قابل‌برنامه‌ریزی که محیط خانه را <span class="accent">درک می‌کند</span>، درباره آن <span class="cyan">تصمیم می‌گیرد</span> و برای کمک به انسان <span class="accent">عمل می‌کند</span>.</p>
+ <div class="grid3">
+  <div class="card"><h3>بدنه فیزیکی</h3><p>چرخ، بازو، نمایشگر، بلندگو یا پایه ثابت؛ بخشی که با دنیای واقعی تعامل دارد.</p></div>
+  <div class="card"><h3>ادراک</h3><p>دوربین، میکروفون، فاصله‌سنج و حسگرها برای دریافت اطلاعات محیط.</p></div>
+  <div class="card"><h3>مغز نرم‌افزاری</h3><p>الگوریتم‌ها برای فهم داده، انتخاب هدف و کنترل حرکت یا پاسخ.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">مرز مهم را روشن کنید: ربات صرفاً یک اپلیکیشن موبایل یا بلندگوی هوشمند نیست. ربات معمولاً بدنه فیزیکی دارد و می‌تواند در محیط حرکت کند یا چیزی را جابه‌جا کند. «هوشمند» بودن نیز به معنی آگاهی انسانی نیست؛ یعنی سامانه با داده و الگوریتم، رفتار متناسب‌تری انتخاب می‌کند. برای نمونه، جاروبرقی رباتیک یک ربات خانگی با وظیفه محدود است.</div></div>
+</section>
+
+<section class="slide" data-title="نیاز و مسئله" data-min="3">
+ <div class="eyebrow">بخش ۰۳ · چرا به آن نیاز داریم؟</div><h2>مسئله‌ای که قرار است حل کنیم</h2>
+ <div class="grid2">
+  <div class="card"><h3>نیازهای روزمره</h3><p>یادآوری کارها، کنترل تجهیزات، پیدا کردن اشیا، پایش وضعیت محیط و کمک به سالمندان یا افراد کم‌توان.</p></div>
+  <div class="card"><h3>چالش خانه‌های امروزی</h3><p>تعداد زیاد دستگاه‌ها، کنترل‌های جداگانه، فراموشی کارها، اتلاف انرژی و نیاز به نظارت پیوسته.</p></div>
+  <div class="card"><h3>راه‌حل پیشنهادی</h3><p>یک رابط واحد و متحرک که اطلاعات را جمع کند، فرمان بگیرد و وظایف ساده و مشخص را انجام دهد.</p></div>
+  <div class="card"><h3>ارزش اصلی</h3><p>صرفه‌جویی در زمان، دسترس‌پذیری بهتر، آگاهی از وضعیت خانه و کاهش کارهای تکراری.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">از مخاطبان بپرسید: «چند نفر از شما در خانه بیش از یک وسیله هوشمند دارید؟» بعد توضیح دهید که مشکل فقط هوشمند نبودن وسایل نیست؛ گاهی هر وسیله جداگانه کار می‌کند و کاربر باید همه را مدیریت کند. ربات می‌تواند نقش رابط و هماهنگ‌کننده داشته باشد، البته فقط در محدوده‌ای که امن و قابل‌اعتماد طراحی شده باشد.</div></div>
+</section>
+
+<section class="slide" data-title="خانه هوشمند یا ربات" data-min="2">
+ <div class="eyebrow">بخش ۰۴ · تفاوت مفهومی</div><h2>خانه هوشمند با ربات خانگی یکی نیست</h2>
+ <table class="table"><thead><tr><th>معیار</th><th>خانه هوشمند</th><th>ربات خانگی هوشمند</th></tr></thead><tbody>
+ <tr><td>ماهیت</td><td>شبکه‌ای از دستگاه‌ها و حسگرها</td><td>عامل فیزیکی با قابلیت ادراک و عمل</td></tr>
+ <tr><td>تحرک</td><td>معمولاً ثابت</td><td>ممکن است متحرک باشد</td></tr>
+ <tr><td>تعامل</td><td>اپلیکیشن، فرمان صوتی، اتوماسیون</td><td>صوت، تصویر، حرکت و تعامل فیزیکی</td></tr>
+ <tr><td>نمونه</td><td>لامپ، ترموستات، قفل هوشمند</td><td>جاروبرقی رباتیک، ربات همراه، ربات خدماتی</td></tr>
+ <tr><td>رابطه</td><td colspan="2">ربات می‌تواند یکی از اجزای خانه هوشمند باشد و دستگاه‌های آن را هماهنگ کند.</td></tr>
+ </tbody></table>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">مثال ملموس بزنید: چراغی که با سنسور روشن می‌شود، خانه هوشمند است اما ربات نیست. دستگاهی که نقشه خانه را می‌سازد، مسیر را انتخاب می‌کند و خودش حرکت می‌کند، ربات است. یک ربات پیشرفته می‌تواند با چراغ، پرده، تهویه و قفل هوشمند ارتباط بگیرد.</div></div>
+</section>
+
+<section class="slide" data-title="کاربردها" data-min="3">
+ <div class="eyebrow">بخش ۰۵ · کاربردهای واقعی</div><h2>ربات در خانه چه کارهایی می‌تواند انجام دهد؟</h2>
+ <div class="grid3">
+  <div class="card"><h3>نظافت</h3><p>جاروکردن، تی‌کشیدن، تشخیص موانع و بازگشت به ایستگاه شارژ.</p></div>
+  <div class="card"><h3>همراهی و یادآوری</h3><p>یادآوری زمان دارو، قرارها، نوشیدن آب و برنامه روزانه.</p></div>
+  <div class="card"><h3>پایش محیط</h3><p>تشخیص دود، دما، رطوبت، نشت آب یا بازماندن در.</p></div>
+  <div class="card"><h3>کنترل خانه</h3><p>کنترل چراغ، پرده، تهویه و پریزهای سازگار با استاندارد.</p></div>
+  <div class="card"><h3>کمک‌رسانی</h3><p>تماس یا ارسال هشدار در شرایط تعریف‌شده و با اجازه کاربر.</p></div>
+  <div class="card"><h3>آموزش و سرگرمی</h3><p>آموزش برنامه‌نویسی، بازی تعاملی و پاسخ‌گویی به پرسش‌ها.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">برای هر کاربرد یک مثال کوتاه بگویید. تفاوت قابلیت موجود و قابلیت پیشنهادی را مشخص کنید: همه ربات‌ها همه این کارها را انجام نمی‌دهند. مثلاً ربات نظافت ممکن است فقط نقشه‌برداری و تمیزکاری داشته باشد و بازوی مکانیکی نداشته باشد. طراحی باید از نیاز واقعی شروع شود، نه از فهرست قابلیت‌های فانتزی.</div></div>
+</section>
+
+<section class="slide" data-title="انواع ربات" data-min="2">
+ <div class="eyebrow">بخش ۰۶ · دسته‌بندی</div><h2>انواع ربات‌های خانگی</h2>
+ <div class="grid2">
+  <div class="card"><h3>ربات متحرک چرخ‌دار</h3><p>حرکت روی سطح صاف، مناسب پایش، همراهی و حمل بار سبک.</p></div>
+  <div class="card"><h3>ربات نظافت</h3><p>دارای برس، مکنده یا تی؛ معمولاً با نقشه و برنامه مسیر حرکت می‌کند.</p></div>
+  <div class="card"><h3>ربات بازودار</h3><p>برای گرفتن و جابه‌جایی اشیای سبک؛ نیازمند کنترل دقیق و ایمنی بیشتر.</p></div>
+  <div class="card"><h3>ربات اجتماعی</h3><p>تمرکز بر گفت‌وگو، نمایش اطلاعات، تعامل و همراهی انسان.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">توضیح دهید که انتخاب شکل ربات تابع وظیفه است. برای یک پروژه دانشجویی، ساخت ربات چرخ‌دار با حسگر فاصله و فرمان صوتی معمولاً واقع‌بینانه‌تر از ساخت ربات انسان‌نما با دست‌های پیچیده است. پیچیدگی مکانیکی و هزینه نگهداری را دست‌کم نگیرید.</div></div>
+</section>
+
+<section class="slide" data-title="چرخه عملکرد" data-min="3">
+ <div class="eyebrow">بخش ۰۷ · چرخه هوشمندی</div><h2>ربات چگونه فکر می‌کند و عمل می‌کند؟</h2>
+ <div class="flow"><span>دریافت داده</span><b>←</b><span>پردازش و تشخیص</span><b>←</b><span>تصمیم‌گیری</span><b>←</b><span>اجرای فرمان</span><b>←</b><span>بازخورد</span></div>
+ <div class="grid2">
+  <div class="card"><h3>مثال: مانع در مسیر</h3><p>حسگر فاصله مانع را می‌بیند؛ کنترل‌گر سرعت را کم می‌کند؛ ربات می‌ایستد یا مسیر جایگزین می‌سازد.</p></div>
+  <div class="card"><h3>مثال: فرمان صوتی</h3><p>میکروفون صدا را می‌گیرد؛ گفتار به متن تبدیل می‌شود؛ نیت کاربر تشخیص داده می‌شود؛ فرمان مجاز اجرا می‌شود.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">این چرخه را ستون فقرات کل ارائه معرفی کنید. هر قابلیت ربات را می‌توان به همین پنج مرحله تجزیه کرد. نکته مهم بازخورد است: ربات نباید فقط فرمان بدهد و فرض کند موفق شده؛ باید با حسگر یا وضعیت دستگاه بررسی کند که عمل واقعاً انجام شده است.</div></div>
+</section>
+
+<section class="slide" data-title="حسگرها" data-min="3">
+ <div class="eyebrow">بخش ۰۸ · حسگرها</div><h2>حسگرها؛ چشم و گوش ربات</h2>
+ <div class="grid3">
+  <div class="card"><h3>فاصله‌سنج اولتراسونیک</h3><p>اندازه‌گیری فاصله مانع با ارسال و دریافت موج صوتی.</p></div>
+  <div class="card"><h3>دوربین</h3><p>ثبت تصویر برای تشخیص اشیا، مسیر یا نشانه‌های محیطی.</p></div>
+  <div class="card"><h3>میکروفون</h3><p>دریافت فرمان صوتی و تشخیص صداهای مهم.</p></div>
+  <div class="card"><h3>IMU</h3><p>شتاب‌سنج و ژیروسکوپ برای تخمین حرکت و چرخش.</p></div>
+  <div class="card"><h3>دما و رطوبت</h3><p>اندازه‌گیری شرایط محیط برای پایش و اتوماسیون.</p></div>
+  <div class="card"><h3>حسگر دود و گاز</h3><p>تشخیص برخی شرایط خطرناک؛ نیازمند انتخاب قطعه معتبر و کالیبراسیون.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">توضیح دهید حسگرها داده خام می‌دهند، نه حقیقت قطعی. حسگر اولتراسونیک ممکن است روی سطوح نرم یا زاویه‌دار خطا کند؛ دوربین در تاریکی یا نور شدید مشکل دارد؛ حسگر گاز نیاز به کالیبراسیون و رعایت دستور سازنده دارد. ترکیب چند حسگر می‌تواند اطمینان را بیشتر کند.</div></div>
+</section>
+
+<section class="slide" data-title="عملگرها" data-min="2">
+ <div class="eyebrow">بخش ۰۹ · عملگرها</div><h2>عملگرها؛ دست و پای ربات</h2>
+ <div class="grid2">
+  <div class="card"><h3>موتور DC گیربکس‌دار</h3><p>تبدیل انرژی الکتریکی به حرکت چرخ‌ها؛ سرعت و گشتاور به ولتاژ و گیربکس وابسته است.</p></div>
+  <div class="card"><h3>سرووموتور</h3><p>چرخش کنترل‌شده برای بازوی سبک، سر ربات یا مکانیزم زاویه‌ای.</p></div>
+  <div class="card"><h3>درایور موتور</h3><p>مدار واسط برای کنترل جهت و سرعت موتور؛ اتصال مستقیم موتور به پایه میکروکنترلر درست نیست.</p></div>
+  <div class="card"><h3>خروجی‌های تعاملی</h3><p>بلندگو، نمایشگر، LED و بیزر برای پاسخ، هشدار و نمایش وضعیت.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">تفاوت حسگر و عملگر را با مثال ساده توضیح دهید: حسگر فاصله را می‌سنجد، موتور حرکت می‌کند. در طراحی واقعی باید جریان راه‌اندازی موتور، توان منبع تغذیه، گرما و توقف اضطراری بررسی شود. میکروکنترلر به‌تنهایی توان راه‌اندازی موتور را ندارد.</div></div>
+</section>
+
+<section class="slide" data-title="پردازنده" data-min="3">
+ <div class="eyebrow">بخش ۱۰ · پردازش و کنترل</div><h2>مغز ربات: میکروکنترلر یا رایانه کوچک؟</h2>
+ <table class="table"><thead><tr><th>گزینه</th><th>مزیت</th><th>محدودیت / کاربرد</th></tr></thead><tbody>
+ <tr><td>Arduino</td><td>ساده، مناسب کنترل قطعات و آموزش</td><td>توان محدود برای پردازش تصویر و مدل‌های سنگین</td></tr>
+ <tr><td>ESP32</td><td>Wi‑Fi و Bluetooth داخلی، کم‌مصرف</td><td>مناسب اینترنت اشیا و کنترل؛ منابع محدودتر</td></tr>
+ <tr><td>Raspberry Pi</td><td>سیستم‌عامل، دوربین و پردازش قوی‌تر</td><td>مصرف و پیچیدگی بیشتر؛ مناسب بینایی ماشین و رابط کاربری</td></tr>
+ <tr><td>ترکیبی</td><td>تقسیم وظیفه بین کنترل حرکت و پردازش سطح بالا</td><td>نیازمند طراحی ارتباط و مدیریت خطا</td></tr>
+ </tbody></table>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">برای نمونه اولیه پیشنهادی، ESP32 می‌تواند کنترل حسگرها، موتور و اتصال شبکه را انجام دهد. اگر تشخیص تصویر محلی یا رابط پیچیده لازم باشد، یک Raspberry Pi به‌عنوان رایانه سطح بالا اضافه می‌شود. معماری ترکیبی بهتر است چون کار حساس کنترل موتور را از پردازش سنگین جدا می‌کند.</div></div>
+</section>
+
+<section class="slide" data-title="اینترنت اشیا" data-min="3">
+ <div class="eyebrow">بخش ۱۱ · اینترنت اشیا</div><h2>نقش اینترنت اشیا در ربات خانگی</h2>
+ <p class="lead">اینترنت اشیا یعنی دستگاه‌های فیزیکی با حسگر، نرم‌افزار و ارتباط شبکه‌ای بتوانند داده ردوبدل کنند و با هم هماهنگ شوند.</p>
+ <div class="diagram">
+  <div style="text-align:center"><span class="node">حسگرها و وسایل خانه</span><span class="arrow">↔</span><span class="node">شبکه Wi‑Fi</span><span class="arrow">↔</span><span class="node">هاب / سرور محلی</span></div>
+  <div style="text-align:center;font-size:24px;color:var(--green);padding:8px">↕</div>
+  <div style="text-align:center"><span class="node">ربات خانگی</span><span class="arrow">↔</span><span class="node">اپلیکیشن کاربر</span><span class="arrow">↔</span><span class="node">سرویس ابری اختیاری</span></div>
+ </div>
+ <div class="grid2"><div class="card"><h3>ارتباط محلی</h3><p>فرمان‌ها در شبکه خانه اجرا می‌شوند؛ وابستگی به اینترنت کمتر و پاسخ‌گویی سریع‌تر است.</p></div><div class="card"><h3>ارتباط ابری</h3><p>دسترسی از راه دور و پردازش بیرونی را ممکن می‌کند؛ اما اینترنت، تأخیر و حریم خصوصی مهم می‌شوند.</p></div></div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">مثال بزنید: ربات دمای اتاق را می‌خواند و به هاب خانه گزارش می‌دهد؛ هاب در صورت مجاز بودن، ترموستات را تنظیم می‌کند. برای فرمان‌های حیاتی بهتر است عملکرد پایه بدون اینترنت هم ادامه داشته باشد. اینترنت اشیا فقط وصل کردن دستگاه به وای‌فای نیست؛ باید پروتکل، هویت دستگاه، مجوز و قالب داده مشخص باشد.</div></div>
+</section>
+
+<section class="slide" data-title="هوش مصنوعی" data-min="3">
+ <div class="eyebrow">بخش ۱۲ · هوش مصنوعی</div><h2>هوش مصنوعی چه چیزی به ربات اضافه می‌کند؟</h2>
+ <div class="grid2">
+  <div class="card"><h3>تشخیص گفتار</h3><p>تبدیل صدای کاربر به متن یا فرمان قابل پردازش.</p></div>
+  <div class="card"><h3>پردازش زبان طبیعی</h3><p>تشخیص منظور جمله؛ مثلاً فرق «چراغ را روشن کن» با پرسش درباره چراغ.</p></div>
+  <div class="card"><h3>بینایی ماشین</h3><p>شناسایی اشیا، افرادِ مجاز، درها و موانع با رعایت حریم خصوصی.</p></div>
+  <div class="card"><h3>یادگیری الگو</h3><p>پیشنهاد زمان‌بندی بر اساس عادت‌های تأییدشده کاربر، نه حدس بی‌اجازه.</p></div>
+ </div>
+ <p class="lead" style="margin-top:15px"><span class="accent">نکته:</span> هوش مصنوعی جایگزین قواعد ایمنی نیست. تصمیم‌های حساس باید محدود، قابل‌توضیح و قابل‌لغو باشند.</p>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">مثال: کاربر می‌گوید «هوا خفه است». سامانه ممکن است از متن، دما و کیفیت هوا برای پیشنهاد تهویه استفاده کند، اما نباید بدون اجازه هر پنجره یا وسیله‌ای را فعال کند. مدل‌های هوش مصنوعی ممکن است اشتباه کنند؛ بنابراین فرمان‌های خطرناک مثل بازکردن قفل ورودی باید احراز هویت و تأیید جداگانه داشته باشند.</div></div>
+</section>
+
+<section class="slide" data-title="معماری پیشنهادی" data-min="3">
+ <div class="eyebrow">بخش ۱۳ · طراحی سیستم</div><h2>معماری پیشنهادی برای پروژه دانشجویی</h2>
+ <div class="diagram">
+  <div style="text-align:center"><span class="node">دوربین / میکروفون / حسگر فاصله</span></div>
+  <div style="text-align:center;color:var(--green);font-size:22px">↓</div>
+  <div style="text-align:center"><span class="node">ESP32: کنترل حسگر و موتور</span><span class="arrow">↔</span><span class="node">Raspberry Pi: پردازش سطح بالا</span></div>
+  <div style="text-align:center;color:var(--green);font-size:22px">↓</div>
+  <div style="text-align:center"><span class="node">درایور موتور + موتورها</span><span class="arrow">↔</span><span class="node">Wi‑Fi / MQTT</span><span class="arrow">↔</span><span class="node">داشبورد موبایل</span></div>
+ </div>
+ <div class="grid2"><div class="card"><h3>لایه سخت‌افزار</h3><p>بدنه، باتری، موتور، حسگر، برد کنترل و مدار تغذیه.</p></div><div class="card"><h3>لایه نرم‌افزار</h3><p>کنترل حرکت، تشخیص مانع، مدیریت فرمان، ثبت رخداد و رابط کاربر.</p></div></div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">این معماری یک پیشنهاد آموزشی است، نه تنها روش ممکن. در نسخه ساده‌تر می‌توان Raspberry Pi را حذف کرد و فقط کنترل حرکت و فرمان‌های ساده را با ESP32 انجام داد. در نسخه پیشرفته، پردازش تصویر روی رایانه کوچک اجرا می‌شود و ESP32 فرمان‌های کم‌سطح موتور را اجرا می‌کند. ارتباط بین دو بخش باید پیام‌های مشخص و قابل‌اعتبارسنجی داشته باشد.</div></div>
+</section>
+
+<section class="slide" data-title="قطعات نمونه اولیه" data-min="3">
+ <div class="eyebrow">بخش ۱۴ · فهرست قطعات</div><h2>برای ساخت نمونه اولیه چه چیزهایی لازم است؟</h2>
+ <table class="table"><thead><tr><th>قطعه</th><th>وظیفه</th><th>نکته انتخاب</th></tr></thead><tbody>
+ <tr><td>شاسی دوچرخ + چرخ هرزگرد</td><td>بدنه و حرکت</td><td>پایدار و متناسب با وزن قطعات</td></tr>
+ <tr><td>۲ موتور DC گیربکس‌دار</td><td>حرکت چپ و راست</td><td>سرعت کم و گشتاور کافی</td></tr>
+ <tr><td>درایور موتور</td><td>راه‌اندازی موتور</td><td>تحمل جریان واقعی موتور</td></tr>
+ <tr><td>ESP32</td><td>کنترل اصلی و Wi‑Fi</td><td>تعداد پایه و نیاز ارتباطی</td></tr>
+ <tr><td>حسگر فاصله + IMU</td><td>تشخیص مانع و حرکت</td><td>محدوده و دقت مناسب</td></tr>
+ <tr><td>باتری، مبدل و کلید قطع</td><td>تغذیه و ایمنی</td><td>محافظت، فیوز و ولتاژ درست</td></tr>
+ <tr><td>میکروفون / بلندگو (اختیاری)</td><td>تعامل صوتی</td><td>حذف نویز و کیفیت صدا</td></tr>
+ </tbody></table>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">توضیح دهید که فهرست قطعات باید با بودجه و هدف نهایی هماهنگ شود. در پروژه اول، بازوی مکانیکی و دوربین گران را حذف کنید تا تمرکز روی حرکت ایمن و کنترل پایه باشد. پیش از خرید، ولتاژ کاری، جریان، سازگاری درایور و ظرفیت باتری را از دیتاشیت بررسی کنید.</div></div>
+</section>
+
+<section class="slide" data-title="نرم‌افزار" data-min="3">
+ <div class="eyebrow">بخش ۱۵ · نرم‌افزار و منطق</div><h2>نرم‌افزار ربات از چه ماژول‌هایی تشکیل می‌شود؟</h2>
+ <div class="grid3">
+  <div class="card"><h3>ماژول حسگر</h3><p>خواندن داده، فیلترکردن نویز و تشخیص داده نامعتبر.</p></div>
+  <div class="card"><h3>ماژول حرکت</h3><p>سرعت چرخ‌ها، چرخش، توقف و کنترل مانع.</p></div>
+  <div class="card"><h3>مدیر وظایف</h3><p>تقسیم کار به وظایف کوچک و اولویت‌بندی آن‌ها.</p></div>
+  <div class="card"><h3>مدیریت فرمان</h3><p>تبدیل گفتار یا اپلیکیشن به فرمان محدود و مجاز.</p></div>
+  <div class="card"><h3>ارتباطات</h3><p>ارسال وضعیت، دریافت فرمان و مدیریت قطع ارتباط.</p></div>
+  <div class="card"><h3>ثبت رخداد</h3><p>ذخیره خطاها و نتیجه عملیات برای عیب‌یابی.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">معماری ماژولار باعث می‌شود اگر بعداً دوربین اضافه کردیم، لازم نباشد کل برنامه را از اول بنویسیم. برای نمونه، فرمان «برو آشپزخانه» باید به بررسی نقشه، بررسی مسیر، حرکت مرحله‌ای و توقف امن تبدیل شود. اگر مسیر مسدود شد، ربات باید گزارش کند، نه اینکه بی‌نهایت تلاش کند.</div></div>
+</section>
+
+<section class="slide" data-title="الگوریتم حرکت" data-min="3">
+ <div class="eyebrow">بخش ۱۶ · الگوریتم نمونه</div><h2>الگوریتم ساده جلوگیری از برخورد</h2>
+ <div class="flow"><span>شروع</span><b>→</b><span>خواندن فاصله</span><b>→</b><span>مقایسه با آستانه</span></div>
+ <div class="grid2">
+  <div class="card"><h3>اگر فاصله امن بود</h3><p>حرکت با سرعت محدود ادامه پیدا می‌کند و اندازه‌گیری تکرار می‌شود.</p></div>
+  <div class="card"><h3>اگر مانع نزدیک بود</h3><p>موتورها متوقف می‌شوند؛ ربات کمی عقب می‌رود یا با بررسی اطراف مسیر جایگزین می‌سازد.</p></div>
+ </div>
+ <div class="diagram"><strong class="accent">شبه‌کد آموزشی</strong><pre style="direction:ltr;text-align:left;color:#bfe8e2;white-space:pre-wrap;line-height:1.8">while robot_is_on:
+    distance = read_distance()
+    if sensor_is_invalid(distance):
+        stop_motors()
+        report("Sensor error")
+    elif distance &lt; SAFE_DISTANCE:
+        stop_motors()
+        turn_to_clear_direction()
+    else:
+        move_forward(limited_speed)</pre></div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">شبه‌کد را خط‌به‌خط توضیح دهید. مقدار SAFE_DISTANCE باید با سرعت، وزن، زمان واکنش و نوع حسگر تعیین و در آزمایش تنظیم شود؛ عدد ثابت جهانی وجود ندارد. نکته مهم این است که خطای حسگر هم باید به توقف امن منجر شود. هیچ‌وقت در صورت قطع داده، ربات را با آخرین فرمان به حرکت ادامه ندهید.</div></div>
+</section>
+
+<section class="slide" data-title="سناریوی عملی" data-min="4">
+ <div class="eyebrow">بخش ۱۷ · سناریوی عملی</div><h2>یک روز عادی با ربات خانگی</h2>
+ <div class="timeline">
+  <div class="timeitem"><strong>۰۷:۰۰ | صبح</strong><p class="muted">ربات طبق برنامه یادآوری بیدارباش را پخش می‌کند و وضعیت باتری و محیط را گزارش می‌دهد.</p></div>
+  <div class="timeitem"><strong>۰۹:۳۰ | خروج از خانه</strong><p class="muted">کاربر حالت خروج را فعال می‌کند؛ ربات وضعیت درها و حسگرهای مجاز را بررسی می‌کند.</p></div>
+  <div class="timeitem"><strong>۱۴:۰۰ | پایش محیط</strong><p class="muted">افزایش غیرعادی دما یا تشخیص دود باعث هشدار می‌شود؛ ربات خودش را جای سیستم ایمنی استاندارد نمی‌گذارد.</p></div>
+  <div class="timeitem"><strong>۱۸:۰۰ | بازگشت</strong><p class="muted">ربات به فرمان صوتی پاسخ می‌دهد و چراغ اتاق را از طریق هاب روشن می‌کند.</p></div>
+  <div class="timeitem"><strong>۲۲:۰۰ | شب</strong><p class="muted">به ایستگاه شارژ می‌رود، گزارش روزانه خلاصه را نمایش می‌دهد و در حالت کم‌مصرف قرار می‌گیرد.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۴ دقیقه</strong><div class="notes">این سناریو را داستانی و پیوسته تعریف کنید. در هر مرحله مشخص کنید چه داده‌ای جمع می‌شود، چه تصمیمی گرفته می‌شود و چه اقدامی انجام می‌شود. از مخاطب بخواهید یک موقعیت دیگر پیشنهاد کند و با همان چرخه ادراک، تصمیم و عمل تحلیلش کنید.</div></div>
+</section>
+
+<section class="slide" data-title="طراحی تجربه کاربر" data-min="2">
+ <div class="eyebrow">بخش ۱۸ · تعامل انسان و ربات</div><h2>ربات باید قابل‌فهم و قابل‌کنترل باشد</h2>
+ <div class="grid2">
+  <div class="card"><h3>فرمان‌های روشن</h3><p>کاربر بداند چه فرمان‌هایی پشتیبانی می‌شوند و چه زمانی ربات در حال شنیدن است.</p></div>
+  <div class="card"><h3>بازخورد واضح</h3><p>تأیید صوتی یا تصویری؛ نمایش انجام‌شدن، شکست یا نیاز به تأیید.</p></div>
+  <div class="card"><h3>کنترل دستی</h3><p>دکمه توقف، خاموش‌کردن میکروفون و امکان کنترل از اپلیکیشن.</p></div>
+  <div class="card"><h3>دسترس‌پذیری</h3><p>فونت خوانا، صدای قابل تنظیم، زبان ساده و مسیرهای جایگزین تعامل.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">رباتی که قابلیت زیادی دارد اما کاربر نمی‌فهمد چه می‌کند، محصول موفقی نیست. وضعیت‌های شنیدن، پردازش، اجرا و خطا باید قابل مشاهده باشند. برای افراد کم‌توان، فرمان صوتی به‌تنهایی کافی نیست؛ کنترل فیزیکی و رابط ساده هم لازم است.</div></div>
+</section>
+
+<section class="slide" data-title="امنیت و حریم خصوصی" data-min="4">
+ <div class="eyebrow">بخش ۱۹ · امنیت و اخلاق</div><h2>وقتی ربات وارد خانه می‌شود، اعتماد حیاتی است</h2>
+ <div class="grid2">
+  <div class="card"><h3>حریم خصوصی</h3><p>حداقل‌سازی ضبط صدا و تصویر، پردازش محلی در صورت امکان و حذف داده غیرضروری.</p></div>
+  <div class="card"><h3>امنیت شبکه</h3><p>رمز عبور قوی، به‌روزرسانی امن، رمزنگاری ارتباط و محدودکردن دسترسی‌ها.</p></div>
+  <div class="card"><h3>مجوز و احراز هویت</h3><p>فرمان حساس فقط از کاربر مجاز و با تأیید روشن اجرا شود.</p></div>
+  <div class="card"><h3>ایمنی فیزیکی</h3><p>سرعت محدود، توقف اضطراری، تشخیص سقوط، محافظت از سیم و جلوگیری از گیرکردن.</p></div>
+ </div>
+ <p class="bigquote" style="margin-top:20px">اصل طراحی: <span class="accent">کمترین داده، کمترین دسترسی، بیشترین شفافیت.</span></p>
+ <div class="speaker"><strong>راهنمای ارائه | ۴ دقیقه</strong><div class="notes">این بخش را جدی بگیرید. دوربین و میکروفون در فضای خصوصی حساس‌اند. داده‌ها باید فقط برای هدف مشخص جمع شوند و کاربر بداند چه چیزی ذخیره یا ارسال می‌شود. دسترسی از راه دور باید احراز هویت داشته باشد. فرمان بازکردن در، روشن‌کردن وسیله پرخطر یا تماس اضطراری نیازمند سیاست ایمنی و تأیید مناسب است. ربات خانگی جایگزین دزدگیر استاندارد، آشکارساز دود یا مراقبت انسانی نیست.</div></div>
+</section>
+
+<section class="slide" data-title="محدودیت‌ها" data-min="3">
+ <div class="eyebrow">بخش ۲۰ · چالش‌ها و محدودیت‌ها</div><h2>چرا ساخت ربات خانگی دشوار است؟</h2>
+ <div class="grid3">
+  <div class="card"><h3>محیط غیرقابل‌پیش‌بینی</h3><p>فرش، پله، حیوان خانگی، سیم، اسباب‌بازی و نور متغیر.</p></div>
+  <div class="card"><h3>باتری و انرژی</h3><p>زمان کار محدود، افت باتری و نیاز به شارژ خودکار.</p></div>
+  <div class="card"><h3>خطای هوش مصنوعی</h3><p>تشخیص اشتباه گفتار، اشیا یا منظور کاربر.</p></div>
+  <div class="card"><h3>هزینه</h3><p>حسگر دقیق، دوربین، باتری و قطعات مکانیکی هزینه‌برند.</p></div>
+  <div class="card"><h3>نگهداری</h3><p>تمیزکاری حسگر، تعویض قطعه و به‌روزرسانی نرم‌افزار.</p></div>
+  <div class="card"><h3>پذیرش کاربر</h3><p>سر و صدا، ظاهر، پیچیدگی و نگرانی از نظارت.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">توضیح دهید خانه محیط آزمایشگاهی نیست. هر روز چیدمان تغییر می‌کند و موانع تازه به وجود می‌آیند. به همین دلیل، هدف نسخه اول نباید «انجام همه کارها» باشد. باید یک وظیفه محدود را با نرخ موفقیت بالا و ایمنی مناسب انجام دهد.</div></div>
+</section>
+
+<section class="slide" data-title="آزمایش و ارزیابی" data-min="3">
+ <div class="eyebrow">بخش ۲۱ · ارزیابی پروژه</div><h2>از کجا بفهمیم پروژه موفق بوده است؟</h2>
+ <table class="table"><thead><tr><th>معیار</th><th>روش آزمایش</th><th>شاخص قابل‌اندازه‌گیری</th></tr></thead><tbody>
+ <tr><td>تشخیص مانع</td><td>قرار دادن مانع در فاصله‌های مختلف</td><td>درصد تشخیص درست و فاصله توقف</td></tr>
+ <tr><td>حرکت</td><td>حرکت در مسیر مشخص و تکرار آزمایش</td><td>خطای مسیر و زمان انجام</td></tr>
+ <tr><td>فرمان صوتی</td><td>گفتن فرمان با صدا و فاصله متفاوت</td><td>نرخ تشخیص درست فرمان</td></tr>
+ <tr><td>ارتباط شبکه</td><td>قطع و وصل Wi‑Fi</td><td>زمان بازیابی و رفتار امن هنگام قطع</td></tr>
+ <tr><td>باتری</td><td>کارکرد پیوسته در سناریوی ثابت</td><td>مدت کار و زمان شارژ</td></tr>
+ <tr><td>ایمنی</td><td>فشردن توقف اضطراری و شبیه‌سازی خطا</td><td>زمان توقف و عدم اجرای فرمان ناخواسته</td></tr>
+ </tbody></table>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">به جای گفتن «ربات خوب کار می‌کند»، عدد و روش آزمایش ارائه کنید. هر آزمایش باید شرایط مشخص و چند بار تکرار شود. برای نمونه، ۲۰ بار فرمان یکسان در شرایط مختلف اجرا شود و تعداد موفقیت ثبت گردد. معیارها باید پیش از آزمایش تعیین شوند تا نتیجه‌گیری سلیقه‌ای نباشد.</div></div>
+</section>
+
+<section class="slide" data-title="مراحل اجرا" data-min="3">
+ <div class="eyebrow">بخش ۲۲ · برنامه ساخت</div><h2>نقشه راه اجرای پروژه</h2>
+ <div class="timeline">
+  <div class="timeitem"><strong>مرحله ۱ | تعریف نیاز</strong><p class="muted">انتخاب یک مسئله محدود، کاربر هدف و معیار موفقیت.</p></div>
+  <div class="timeitem"><strong>مرحله ۲ | طراحی</strong><p class="muted">رسم بلوک‌دیاگرام، انتخاب قطعات و برآورد توان و هزینه.</p></div>
+  <div class="timeitem"><strong>مرحله ۳ | نمونه مکانیکی</strong><p class="muted">ساخت شاسی، نصب موتور، باتری و کلید قطع اضطراری.</p></div>
+  <div class="timeitem"><strong>مرحله ۴ | کنترل پایه</strong><p class="muted">راه‌اندازی موتور، خواندن حسگر و توقف در برابر مانع.</p></div>
+  <div class="timeitem"><strong>مرحله ۵ | ارتباط و رابط</strong><p class="muted">ساخت داشبورد و دریافت فرمان‌های محدود.</p></div>
+  <div class="timeitem"><strong>مرحله ۶ | آزمایش و مستندسازی</strong><p class="muted">ثبت نتایج، رفع خطا، تهیه ویدئو و گزارش نهایی.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۳ دقیقه</strong><div class="notes">تأکید کنید که ترتیب مراحل مهم است. اول حرکت و توقف امن را درست کنید، بعد سراغ قابلیت‌های جذاب‌تر بروید. اگر از ابتدا هم‌زمان سراغ بینایی ماشین، گفتار، نقشه‌برداری و بازوی مکانیکی برویم، پیدا کردن منشأ خطا بسیار سخت می‌شود.</div></div>
+</section>
+
+<section class="slide" data-title="هزینه و توسعه" data-min="2">
+ <div class="eyebrow">بخش ۲۳ · هزینه و توسعه‌پذیری</div><h2>چطور پروژه را اقتصادی و قابل‌ارتقا نگه داریم؟</h2>
+ <div class="grid2">
+  <div class="card"><h3>نسخه پایه</h3><p>شاسی دوچرخ، ESP32، حسگر فاصله، درایور و باتری؛ تمرکز بر حرکت و جلوگیری از برخورد.</p></div>
+  <div class="card"><h3>نسخه میانی</h3><p>افزودن Wi‑Fi، داشبورد، فرمان صوتی ساده و حسگرهای محیطی.</p></div>
+  <div class="card"><h3>نسخه پیشرفته</h3><p>افزودن رایانه کوچک، دوربین، نقشه‌برداری و تعامل طبیعی‌تر.</p></div>
+  <div class="card"><h3>مدیریت هزینه</h3><p>استفاده از قطعات ماژولار، خرید مرحله‌ای و ثبت هزینه واقعی هر قابلیت.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">بدون قیمت قطعی صحبت کنید، چون بازار قطعات و نرخ ارز تغییر می‌کند. بهتر است هزینه را به دسته‌های مکانیک، کنترل، حسگر، انرژی و نرم‌افزار تقسیم کنیم. ساخت مرحله‌ای اجازه می‌دهد پیش از خرید قطعات گران، ارزش فنی ایده را بسنجیم.</div></div>
+</section>
+
+<section class="slide" data-title="آینده" data-min="2">
+ <div class="eyebrow">بخش ۲۴ · آینده ربات‌های خانگی</div><h2>مسیر آینده به کدام سمت می‌رود؟</h2>
+ <div class="grid3">
+  <div class="card"><h3>تعامل طبیعی‌تر</h3><p>گفت‌وگوی چندمرحله‌ای و فهم بهتر زمینه مکالمه.</p></div>
+  <div class="card"><h3>همکاری چندرباتی</h3><p>تقسیم وظایف بین ربات نظافت، پایش و حمل وسایل.</p></div>
+  <div class="card"><h3>شخصی‌سازی امن</h3><p>تنظیم رفتار بر اساس ترجیحات کاربر با کنترل و شفافیت.</p></div>
+  <div class="card"><h3>پردازش لبه‌ای</h3><p>اجرای بیشتر پردازش‌ها داخل خانه برای کاهش تأخیر و ارسال داده.</p></div>
+  <div class="card"><h3>دستکاری ماهرانه</h3><p>بازوهای ایمن‌تر برای گرفتن اشیای متنوع و کارهای ظریف.</p></div>
+  <div class="card"><h3>استانداردسازی</h3><p>سازگاری بهتر میان دستگاه‌ها و مدیریت یکپارچه خانه.</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">از اغراق درباره آینده پرهیز کنید. ربات انسان‌نمای همه‌کاره هنوز با چالش‌های هزینه، ایمنی و قابلیت اطمینان روبه‌رو است. روند واقع‌بینانه‌تر، ربات‌های تخصصی‌تر و هماهنگی بهتر بین دستگاه‌هاست.</div></div>
+</section>
+
+<section class="slide" data-title="جمع‌بندی" data-min="2">
+ <div class="eyebrow">بخش ۲۵ · نتیجه‌گیری</div><h2>جمع‌بندی: ربات خوب، ربات قابل‌اعتماد است</h2>
+ <p class="bigquote">موفقیت ربات خانگی فقط به هوش مصنوعی قوی وابسته نیست؛ به <span class="accent">طراحی درست، ایمنی، تجربه کاربر و آزمایش واقعی</span> وابسته است.</p>
+ <div class="bullets">
+  <div class="bullet"><i class="dot"></i><span>از یک نیاز واقعی و محدود شروع کنیم.</span></div>
+  <div class="bullet"><i class="dot"></i><span>حسگر، پردازنده و عملگر را هماهنگ طراحی کنیم.</span></div>
+  <div class="bullet"><i class="dot"></i><span>اینترنت اشیا را برای ارتباط و هماهنگی به کار ببریم.</span></div>
+  <div class="bullet"><i class="dot"></i><span>هوش مصنوعی را با قواعد ایمنی محدود کنیم.</span></div>
+  <div class="bullet"><i class="dot"></i><span>حریم خصوصی را از ابتدای پروژه در نظر بگیریم.</span></div>
+  <div class="bullet"><i class="dot"></i><span>موفقیت را با آزمایش و داده بسنجیم.</span></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه</strong><div class="notes">نتیجه را به مسئله اولیه وصل کنید: ربات قرار نیست انسان را جایگزین کند؛ قرار است کارهای تکراری و پایش‌های مشخص را آسان‌تر کند. بهترین نسخه، نسخه‌ای نیست که بیشترین قابلیت را دارد؛ نسخه‌ای است که وظیفه تعریف‌شده را امن، پایدار و قابل‌فهم انجام می‌دهد.</div></div>
+</section>
+
+<section class="slide" data-title="پرسش و پاسخ" data-min="2">
+ <div class="eyebrow">پایان ارائه</div><h1>پرسش و پاسخ</h1>
+ <p class="lead">از تعریف مسئله تا طراحی نمونه اولیه؛ حالا می‌توانیم درباره انتخاب قطعات، الگوریتم‌ها، هزینه و چالش‌های ساخت گفت‌وگو کنیم.</p>
+ <div class="grid3">
+  <div class="card"><h3>سؤال ۱</h3><p>اگر اینترنت قطع شود، کدام قابلیت‌ها باید همچنان کار کنند؟</p></div>
+  <div class="card"><h3>سؤال ۲</h3><p>برای نسخه اول، کدام قابلیت را حذف می‌کنید تا پروژه عملی بماند؟</p></div>
+  <div class="card"><h3>سؤال ۳</h3><p>چطور مطمئن می‌شویم دوربین و میکروفون حریم خصوصی را نقض نمی‌کنند؟</p></div>
+ </div>
+ <div class="speaker"><strong>راهنمای ارائه | ۲ دقیقه + پرسش‌ها</strong><div class="notes">برای جمع‌بندی از کلاس سه سؤال بپرسید. اگر پرسشی مطرح شد، پاسخ را به معماری، ایمنی یا معیار آزمایش وصل کنید. اگر پاسخ قطعی ندارید، آن را به‌عنوان موضوعی برای تحقیق و آزمایش ثبت کنید؛ در مهندسی، ادعای بی‌پشتوانه از ندانستن بدتر است.</div></div>
+</section>
+</main>
+<footer class="bottom">
+ <div class="timer">زمان بخش: <strong id="sectionTime">۱ دقیقه</strong></div>
+ <div class="progress"><div id="bar"></div></div>
+ <div class="counter" id="counter">۱ / ۲۶</div>
+ <div class="nav"><button id="prev">قبلی</button><button class="primary" id="next">بعدی ←</button></div>
+</footer>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let index=0,notes=true,started=Date.now(),sectionStarted=Date.now();
+const $=id=>document.getElementById(id);
+function fa(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[+d])}
+function show(i){index=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,k)=>s.classList.toggle('active',k===index));$('counter').textContent=`${fa(index+1)} / ${fa(slides.length)}`;$('bar').style.width=((index+1)/slides.length*100)+'%';$('prev').disabled=index===0;$('next').textContent=index===slides.length-1?'پایان':'بعدی ←';$('sectionTime').textContent=fa(slides[index].dataset.min||2)+' دقیقه';sectionStarted=Date.now();document.querySelector('main').scrollTop=0;}
+$('next').addEventListener('click',()=>show(index+1));$('prev').addEventListener('click',()=>show(index-1));
+document.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();show(index+1)}if(['ArrowRight','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(index-1)}if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1)});
+$('notesBtn').addEventListener('click',()=>{notes=!notes;document.body.classList.toggle('hide-notes',!notes);$('notesBtn').textContent=notes?'پنهان‌کردن یادداشت':'نمایش یادداشت'});
+$('fullBtn').addEventListener('click',()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()});
+show(0);
+</script>
+</body>
+</html>
